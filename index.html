@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lords of Finance</title>
+<meta name="description" content="Lords of Finance: a dollar backed only by ETH. No custodian, no admin keys, no governance. In development; no token exists yet.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1B1815" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/emblem.webp" type="image/webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Grenze+Gotisch:wght@600&family=Montserrat:wght@500;600&display=swap">
+<style>
+:root{
+  --paper:#FFFFFF;
+  --wash:#F6F5F2;
+  --ink:#2A2623;
+  --ink-2:#5F5852;
+  --ink-3:#8C847C;
+  --rule:#E4DED6;
+  --rule-2:#CFC6BB;
+  --madder:#6E211D;
+  --brick:#A3402F;
+  --gold:#DDBB5F;
+  --gold-2:#C9A13B;
+  --gold-ink:#7A5A10;
+  --gold-wash:#F7EFD8;
+  --slate:#46607A;
+  --sage:#4A6043;
+  --link:#6E211D;
+  --link-hover:#A3402F;
+  --strip-bg:#6E211D;
+  --strip-ink:#F3DE9E;
+  --warn-bg:#FBF3F0;
+  --warn-rule:#A3402F;
+  --seal:#FBF7EE;
+  --plate:transparent;
+  --plate-pad:0px;
+  --font-name:"Grenze Gotisch","Alegreya","Palatino Linotype",Palatino,Georgia,serif;
+  --font-serif:"Alegreya","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --font-sans:"Montserrat","Helvetica Neue",Arial,sans-serif;
+  --gl:max(16px, env(safe-area-inset-left, 0px));
+  --gr:max(16px, env(safe-area-inset-right, 0px));
+  --maxw:1120px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --paper:#1B1815;
+    --wash:#24201C;
+    --ink:#EEE7DC;
+    --ink-2:#BDB2A5;
+    --ink-3:#938a7f;
+    --rule:#37312B;
+    --rule-2:#4E463E;
+    --madder:#E39A8C;
+    --brick:#E0846F;
+    --gold-2:#C9A13B;
+    --gold-ink:#E5C978;
+    --gold-wash:#2E2716;
+    --slate:#9DB4CA;
+    --sage:#A9BF9E;
+    --link:#EBA99B;
+    --link-hover:#F3C4B9;
+    --strip-bg:#4A1714;
+    --strip-ink:#EBCB72;
+    --warn-bg:#2A1916;
+    --warn-rule:#C2604C;
+    --seal:#F4EFE6;
+    --plate:#F4EFE6;
+    --plate-pad:12px;
+    color-scheme:dark;
+  }
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-serif);font-size:17px;line-height:1.55;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--link);text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{color:var(--link-hover)}
+:focus-visible{outline:2px solid var(--slate);outline-offset:2px;border-radius:2px}
+h1,h2,h3{font-family:var(--font-serif);font-weight:500;color:var(--ink);margin:0}
+h1{font-size:clamp(34px,5.6vw,54px);line-height:1.08;letter-spacing:-.005em}
+h2{font-size:clamp(26px,3.4vw,32px);line-height:1.18}
+h3{font-size:22px;line-height:1.25}
+p{margin:0 0 .8em}
+.sans{font-family:var(--font-sans)}
+.wrap{max-width:var(--maxw);margin-inline:auto}
+.gutter{padding-left:var(--gl);padding-right:var(--gr)}
+.skip{position:absolute;left:-9999px;top:0}
+.skip:focus{left:var(--gl);top:8px;background:var(--paper);padding:8px 12px;z-index:10}
+
+/* Placeholders to replace before publishing */
+.ph{font-family:var(--font-sans);font-size:.82em;font-weight:600;letter-spacing:.02em;white-space:nowrap;color:var(--gold-ink);background:var(--gold-wash);border:1px dashed var(--gold-2);border-radius:2px;padding:1px 6px}
+
+/* Warning strip */
+.strip{background:var(--strip-bg);color:var(--strip-ink);font-family:var(--font-sans);font-size:14px;font-weight:600;line-height:1.45;letter-spacing:.01em;text-align:center;padding:11px var(--gr) 11px var(--gl)}
+.strip p{margin:0;max-width:var(--maxw);margin-inline:auto}
+
+/* Masthead */
+.masthead{border-bottom:1px solid var(--rule);padding-top:12px;padding-bottom:10px}
+.masthead .wrap{display:flex;align-items:center;flex-wrap:wrap;gap:8px 28px}
+.brand{display:flex;align-items:center;gap:10px;margin-right:auto;text-decoration:none;color:var(--ink)}
+.brand .seal-img{width:56px;height:auto;background:var(--seal);border-radius:4px;padding:2px}
+.brand span{font-family:var(--font-name);font-weight:600;font-size:28px;line-height:1;color:var(--ink);letter-spacing:.01em}
+.nav ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:0 22px}
+.nav a{display:inline-block;font-family:var(--font-sans);font-weight:500;font-size:12.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-2);text-decoration:none;padding:8px 0 6px;border-bottom:2px solid transparent}
+.nav a:hover{color:var(--madder);border-bottom-color:var(--gold-2)}
+@media (max-width:820px){.nav{width:100%}}
+@media (max-width:520px){
+  .brand .seal-img{width:44px}
+  .brand span{font-size:23px}
+  .nav ul{gap:0 16px}
+  .nav a{font-size:11.5px;letter-spacing:.1em}
+}
+
+main{padding-top:40px;padding-bottom:24px}
+section{scroll-margin-top:16px}
+
+/* Hero */
+.hero{display:grid;gap:28px 52px;align-items:center}
+@media (min-width:900px){.hero{grid-template-columns:minmax(0,5fr) minmax(0,6fr)}}
+.status{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-sans);font-size:12.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-ink);background:var(--gold-wash);border-radius:999px;padding:5px 12px 5px 10px;margin-bottom:20px}
+.status::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--gold-2)}
+.hero h1{max-width:14ch}
+.lede{font-size:20px;line-height:1.5;color:var(--ink-2);max-width:40ch;margin:18px 0 26px}
+.rubric{font-style:italic;font-size:clamp(19px,2.2vw,22px);line-height:1.45;color:var(--ink);max-width:44ch;margin:0;padding:4px 0 4px 20px;border-left:3px double var(--gold-2)}
+.plate{margin:0;background:var(--plate);padding:var(--plate-pad);border-radius:3px}
+.plate img{width:100%}
+
+/* Fillet with quatrefoil */
+.fillet{border:0;height:5px;border-top:1px solid var(--rule-2);border-bottom:1px solid var(--rule-2);margin:64px 0;position:relative;overflow:visible}
+.fillet::after{content:"";position:absolute;left:50%;top:50%;width:16px;height:16px;transform:translate(-50%,-50%);background:var(--paper) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-10 -10 20 20'%3E%3Cg fill='%23C9A13B'%3E%3Ccircle cx='0' cy='-4.2' r='3.9'/%3E%3Ccircle cx='4.2' cy='0' r='3.9'/%3E%3Ccircle cx='0' cy='4.2' r='3.9'/%3E%3Ccircle cx='-4.2' cy='0' r='3.9'/%3E%3C/g%3E%3C/svg%3E") center/14px no-repeat;padding:0 14px;box-sizing:content-box}
+
+.section-head{margin-bottom:26px;max-width:62ch}
+.section-head p{color:var(--ink-2);margin:8px 0 0;font-size:18px}
+
+/* Roles */
+.roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:40px 40px}
+.role{border-top:3px double var(--acc);padding-top:18px}
+.seal{display:flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:50%;background:var(--seal);box-shadow:inset 0 0 0 1px var(--gold-2);margin-bottom:12px}
+.seal svg{width:46px;height:46px}
+.role h3{display:flex;align-items:baseline;gap:4px 10px;flex-wrap:wrap}
+.role h3 small{font-family:var(--font-sans);font-size:12.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+.role p{margin:10px 0 0;font-size:17px}
+.acc-sol{--acc:var(--gold-2)}
+.acc-flor{--acc:var(--brick)}
+.acc-dukes{--acc:var(--slate)}
+
+/* Series */
+.series{margin-top:44px;padding-top:22px;border-top:1px solid var(--rule)}
+.series h3{margin-bottom:8px}
+.series p{max-width:66ch}
+.coins{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px 0;font-family:var(--font-serif);font-size:18px;line-height:1.4}
+.coins li{white-space:nowrap}
+.coins li:not(:last-child)::after{content:"\00B7";color:var(--gold-2);font-weight:700;padding:0 .5em}
+.coins li:nth-child(1){color:var(--madder);font-weight:700}
+
+/* Team */
+.team{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:0 36px;list-style:none;margin:0;padding:0}
+.team li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;align-items:center;padding:14px 0;border-bottom:1px dotted var(--rule-2)}
+.initial{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-name);font-weight:600;font-size:24px;line-height:1;color:var(--madder);box-shadow:inset 0 0 0 1px var(--gold-2);background:var(--gold-wash)}
+.team .nm{display:block;font-size:20px;line-height:1.2}
+.team .rl{display:block;font-family:var(--font-sans);font-size:13.5px;color:var(--ink-2);margin-top:2px}
+.human{margin-top:30px;border-top:3px double var(--gold-2);border-bottom:3px double var(--gold-2);padding:20px 0;display:grid;gap:6px 28px;align-items:baseline}
+@media (min-width:760px){.human{grid-template-columns:auto 1fr}}
+.human .k{font-family:var(--font-sans);font-size:12.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-ink)}
+.human .nm{font-size:24px;line-height:1.3}
+.human p{margin:4px 0 0;color:var(--ink-2);font-size:16.5px}
+
+/* Calendar */
+.timeline{list-style:none;margin:0 0 0 8px;padding:0;border-left:2px solid var(--rule-2);max-width:70ch}
+.timeline li{position:relative;padding:0 0 30px 30px}
+.timeline li:last-child{padding-bottom:4px}
+.timeline li::before{content:"";position:absolute;left:-10px;top:4px;width:18px;height:18px;border-radius:50%;background:var(--paper);box-shadow:inset 0 0 0 2px var(--gold-2)}
+.timeline li.now::before{background:var(--gold-2)}
+.when{display:block;font-family:var(--font-sans);font-size:12.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-ink);margin-bottom:2px}
+.timeline h3{margin-bottom:6px}
+.timeline p{margin:0;color:var(--ink-2)}
+
+/* Notices */
+.notice{background:var(--warn-bg);border-top:3px double var(--warn-rule);border-bottom:3px double var(--warn-rule);padding:28px clamp(16px,4vw,40px)}
+.notice h2{margin-bottom:6px}
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:18px 40px;margin:22px 0 24px;padding:16px 0;border-top:1px solid var(--rule-2);border-bottom:1px solid var(--rule-2)}
+.fig .n{display:block;font-family:var(--font-serif);font-size:clamp(34px,5.4vw,46px);line-height:1.05;font-variant-numeric:lining-nums;color:var(--ink)}
+.fig .u{display:block;font-family:var(--font-sans);font-size:13.5px;color:var(--ink-2);margin-top:4px}
+.points{list-style:none;margin:0;padding:0;max-width:66ch}
+.points li{position:relative;padding:8px 0 8px 26px;font-size:18px;line-height:1.5}
+.points li::before{content:"";position:absolute;left:2px;top:16px;width:12px;height:12px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-10 -10 20 20'%3E%3Cg fill='%23C0574A'%3E%3Ccircle cx='0' cy='-4.2' r='3.9'/%3E%3Ccircle cx='4.2' cy='0' r='3.9'/%3E%3Ccircle cx='0' cy='4.2' r='3.9'/%3E%3Ccircle cx='-4.2' cy='0' r='3.9'/%3E%3C/g%3E%3C/svg%3E") center/12px no-repeat}
+.points strong{font-weight:700}
+.scam{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:start}
+.scam .mark{width:40px;height:40px;border-radius:50%;background:var(--strip-bg);color:var(--strip-ink);display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-weight:700;font-size:24px;line-height:1}
+.scam p{margin:0;font-size:19px;line-height:1.45}
+.scam p+p{margin-top:6px;font-size:16.5px;color:var(--ink-2)}
+
+/* Links */
+.links{list-style:none;margin:0 0 36px;padding:0;max-width:620px}
+.links li{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 16px;padding:12px 0;border-bottom:1px dotted var(--rule-2)}
+.links .k{font-family:var(--font-sans);font-weight:600;font-size:15px;min-width:72px}
+.links .d{color:var(--ink-2);font-size:16px;margin-left:auto}
+
+/* Footer */
+.foot{margin-top:72px;padding-top:22px;padding-bottom:40px;border-top:1px solid var(--rule-2)}
+.foot .wrap{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;font-family:var(--font-sans);font-size:12.5px;color:var(--ink-2)}
+.foot img{width:42px;background:var(--seal);border-radius:4px;padding:2px}
+.foot .nm{font-family:var(--font-name);font-size:21px;color:var(--ink);font-weight:600}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-purse" viewBox="0 0 48 48">
+      <path d="M18.5 17.5C9.5 22.5 8.5 37.5 14.5 41.5c5 3.3 14.5 3.3 19 0 6-4 5-19-4-24z" fill="#C2A27C" stroke="#2A2623" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M21 25c-1.6 4.5-1.2 9.5 1 13.5M28.5 24c1.4 4 1.2 9-.6 12.5" fill="none" stroke="#6B4A32" stroke-width="1" opacity=".55"/>
+      <path d="M17.5 11.5c2-2.6 4.3-.6 6.5-3 2.2 2.4 4.5.4 6.5 3l-1.2 6h-10.6z" fill="#D7BE9C" stroke="#2A2623" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M17 17.6h14" stroke="#6E211D" stroke-width="2.6" stroke-linecap="round"/>
+      <circle cx="34.5" cy="37.5" r="6.6" fill="#DDBB5F" stroke="#2A2623" stroke-width="1.5"/>
+      <circle cx="34.5" cy="37.5" r="3.9" fill="none" stroke="#7A5A10" stroke-width="1"/>
+    </symbol>
+    <symbol id="i-helm" viewBox="0 0 48 48">
+      <path d="M24 7.5C31 7.5 35.5 11.5 35.5 19v22h-11.5z" fill="#4E5862"/>
+      <path d="M24 7.5C17 7.5 12.5 11.5 12.5 19v22H24z" fill="#E6E9EC"/>
+      <rect x="13.2" y="20" width="21.6" height="3.4" fill="#2A2623"/>
+      <path d="M24 8v12M24 23.5V40.5M18 31.5h12" stroke="#DDBB5F" stroke-width="2.2"/>
+      <g fill="#2A2623"><circle cx="16.5" cy="34" r=".9"/><circle cx="16.5" cy="37" r=".9"/></g>
+      <g fill="#E6E9EC"><circle cx="31.5" cy="34" r=".9"/><circle cx="31.5" cy="37" r=".9"/></g>
+      <path d="M12.5 41V19C12.5 11.5 17 7.5 24 7.5S35.5 11.5 35.5 19v22z" fill="none" stroke="#2A2623" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-coronet" viewBox="0 0 48 48">
+      <path d="M12.5 29c0-9 5-14.5 11.5-14.5S35.5 20 35.5 29z" fill="#8C2E27" stroke="#2A2623" stroke-width="1.5"/>
+      <circle cx="24" cy="13" r="2.4" fill="#DDBB5F" stroke="#2A2623" stroke-width="1.2"/>
+      <g fill="#DDBB5F" stroke="#2A2623" stroke-width="1.2" stroke-linejoin="round">
+        <path d="M24 19.5c-3.4 2.4-4.2 5.5-2.6 9h5.2c1.6-3.5.8-6.6-2.6-9z"/>
+        <path d="M13.5 21.5c-2.6 2.8-2.8 5.4-1.2 7.5h4.8c.6-3.2-.6-5.6-3.6-7.5z"/>
+        <path d="M34.5 21.5c2.6 2.8 2.8 5.4 1.2 7.5h-4.8c-.6-3.2.6-5.6 3.6-7.5z"/>
+      </g>
+      <rect x="9.5" y="28.5" width="29" height="8.5" rx="1" fill="#DDBB5F" stroke="#2A2623" stroke-width="1.5"/>
+      <circle cx="16" cy="32.75" r="1.9" fill="#46607A"/>
+      <circle cx="24" cy="32.75" r="2.1" fill="#8C2E27"/>
+      <circle cx="32" cy="32.75" r="1.9" fill="#46607A"/>
+    </symbol>
+  </defs>
+</svg>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="strip" role="note" aria-label="Warning">
+  <p>No SOLIDUS, Florín or DUKES token exists yet. Anything that claims to be one is a scam.</p>
+</div>
+
+<header class="masthead gutter">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Lords of Finance, top of page">
+      <img class="seal-img" src="assets/emblem.webp" alt="" width="240" height="190">
+      <span>Lords of Finance</span>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <ul>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a href="#calendar">Calendar</a></li>
+        <li><a href="#cap">Launch cap</a></li>
+        <li><a href="#links">Links</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="gutter">
+  <div class="wrap" id="top">
+
+    <section class="hero" aria-labelledby="h-what">
+      <div>
+        <span class="status">In development</span>
+        <h1 id="h-what">A dollar backed only by ETH.</h1>
+        <p class="lede">No custodian, no admin keys, no governance. The contracts are immutable: once deployed, nobody can change them.</p>
+        <p class="rubric">An AI-created decentralized stablecoin: designed, specified and coded by a team of AI agents; a human decides and deploys it.</p>
+      </div>
+      <figure class="plate">
+        <img src="assets/scene.webp" width="1400" height="862" alt="Watercolor after a medieval manuscript: two money changers count gold coins at a red table, and two merchants pass a purse of coins between columns.">
+      </figure>
+    </section>
+
+    <hr class="fillet">
+
+    <section id="how" aria-labelledby="h-how">
+      <div class="section-head">
+        <h2 id="h-how">How it works</h2>
+        <p>Three tokens and one reserve of ETH.</p>
+      </div>
+      <div class="roles">
+        <article class="role acc-sol">
+          <div class="seal" aria-hidden="true"><svg><use href="#i-purse"/></svg></div>
+          <h3>SOLIDUS <small>The dollar</small></h3>
+          <p>Anyone can mint SOLIDUS with ETH and redeem it for ETH, at close to one dollar, without asking anyone’s permission. The reserve holds only ETH, part of it staked through Lido.</p>
+          <p>Orders settle in batches, at the next ETH price published by Chainlink, the protocol’s only price source.</p>
+        </article>
+        <article class="role acc-flor">
+          <div class="seal" aria-hidden="true"><svg><use href="#i-helm"/></svg></div>
+          <h3>Florines <small>The Lords’ capital</small></h3>
+          <p>Lords put ETH into the reserve and receive Florines. This capital stands beneath SOLIDUS: it absorbs the losses, and it receives most of the protocol’s income.</p>
+          <p>A Florín is a leveraged position in ETH, and it can be lost entirely.</p>
+        </article>
+        <article class="role acc-dukes">
+          <div class="seal" aria-hidden="true"><svg><use href="#i-coronet"/></svg></div>
+          <h3>DUKES <small>The reward token</small></h3>
+          <p>A reward token with a fixed supply, set at deployment. Half goes to participants, SOLIDUS holders and Lords, over time; half goes to the team.</p>
+          <p>Holders receive a fixed share of the protocol’s income, paid in Florines, in proportion to their DUKES. No vote and no other right.</p>
+        </article>
+      </div>
+
+      <div class="series" aria-labelledby="h-series">
+        <h3 id="h-series">Series</h3>
+        <p>Each series of SOLIDUS carries the name of a historical coin. If the reserve falls too close to what SOLIDUS holders are owed, the series stops: its holders are paid in ETH, less than a dollar each. A new series then opens under the next name.</p>
+        <ol class="coins" aria-label="The twenty series, in order">
+          <li>Solidus</li><li>Mancus</li><li>Hyperpyron</li><li>Morabetino</li><li>Augustale</li><li>Genovino</li><li>Écu</li><li>Dobla</li><li>Noble</li><li>Cruzado</li><li>Angel</li><li>Sovereign</li><li>Excelente</li><li>Mohur</li><li>Doubloon</li><li>Louis d’or</li><li>Moidore</li><li>Guinea</li><li>Napoléon</li><li>Eagle</li>
+        </ol>
+      </div>
+    </section>
+
+    <hr class="fillet">
+
+    <section id="team" aria-labelledby="h-team">
+      <div class="section-head">
+        <h2 id="h-team">Who builds it</h2>
+        <p>Eight AI agents design, specify, code and attack the protocol. A person decides and deploys it. The agents hold no keys.</p>
+      </div>
+      <ul class="team">
+        <li><span class="initial" aria-hidden="true">C</span><span><span class="nm">Claudio</span><span class="rl">Coordinates the team</span></span></li>
+        <li><span class="initial" aria-hidden="true">M</span><span><span class="nm">Madison</span><span class="rl">Designs the protocol</span></span></li>
+        <li><span class="initial" aria-hidden="true">P</span><span><span class="nm">Pacioli</span><span class="rl">Writes the code</span></span></li>
+        <li><span class="initial" aria-hidden="true">B</span><span><span class="nm">Belcebú</span><span class="rl">Attacks the design</span></span></li>
+        <li><span class="initial" aria-hidden="true">S</span><span><span class="nm">Satán</span><span class="rl">Attacks the design</span></span></li>
+        <li><span class="initial" aria-hidden="true">O</span><span><span class="nm">Odiseo</span><span class="rl">Internal security review</span></span></li>
+        <li><span class="initial" aria-hidden="true">L</span><span><span class="nm">Leonardo</span><span class="rl">Website</span></span></li>
+        <li><span class="initial" aria-hidden="true">D</span><span><span class="nm">Donald</span><span class="rl">Strategy and communication</span></span></li>
+      </ul>
+      <div class="human">
+        <span class="k">Decides and deploys</span>
+        <div>
+          <span class="nm">Chico Rei</span>
+          <p>The person who makes every decision and signs the deployment.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="fillet">
+
+    <section id="calendar" aria-labelledby="h-cal">
+      <div class="section-head">
+        <h2 id="h-cal">Status and calendar</h2>
+        <p>The protocol does not exist yet.</p>
+      </div>
+      <ol class="timeline">
+        <li class="now">
+          <span class="when">Now</span>
+          <h3>In development</h3>
+          <p>The design, the specification and the code are being written, and reviewed internally by agents of the same model that wrote them.</p>
+        </li>
+        <li>
+          <span class="when">2027</span>
+          <h3>Estanciero</h3>
+          <p>Before mainnet, a public testnet with play money. Exploiting flaws is allowed, and the players who gain the most receive prizes in DUKES.</p>
+        </li>
+        <li>
+          <span class="when">2027</span>
+          <h3>Mainnet, with a cap</h3>
+          <p>Deployment on Ethereum, with limits on the amounts for 90 days.</p>
+        </li>
+      </ol>
+    </section>
+
+    <hr class="fillet">
+
+    <section id="cap" class="notice" aria-labelledby="h-cap">
+      <h2 id="h-cap">Launch with a cap</h2>
+      <p class="sans" style="font-size:14px;color:var(--ink-2);margin:0">For the 90 days after launch.</p>
+      <div class="figs">
+        <div class="fig"><span class="n">1,000,000</span><span class="u">SOLIDUS in circulation, at most</span></div>
+        <div class="fig"><span class="n">US$4,000,000</span><span class="u">of capital from Lords, at most</span></div>
+      </div>
+      <ul class="points">
+        <li>Until the cap ends, 90 days after launch, SOLIDUS is not yet a stablecoin: it could be worth more than one dollar.</li>
+        <li><strong>During the cap the code is new, and you can lose your money.</strong></li>
+      </ul>
+    </section>
+
+    <hr class="fillet">
+
+    <section id="links" aria-labelledby="h-links">
+      <div class="section-head">
+        <h2 id="h-links">Links</h2>
+      </div>
+      <ul class="links">
+        <li><span class="k">GitHub</span><a href="https://github.com/chicoreidossantos/lords-finance-web">github.com/chicoreidossantos/lords-finance-web</a><span class="d">Code and documents</span></li>
+      </ul>
+      <div class="notice scam" role="note" aria-label="Scam warning">
+        <span class="mark" aria-hidden="true">!</span>
+        <div>
+          <p><strong>No SOLIDUS, Florín or DUKES token exists yet.</strong> Anything that claims to be one is a scam.</p>
+          <p>Do not send ETH or tokens to any address that says it belongs to Lords of Finance.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="foot gutter">
+  <div class="wrap">
+    <img src="assets/emblem.webp" alt="" width="240" height="190">
+    <span class="nm">Lords of Finance</span>
+    <span>lords.finance</span>
+    <span>In development. No token exists yet.</span>
+  </div>
+</footer>
+
+</body>
+</html>
