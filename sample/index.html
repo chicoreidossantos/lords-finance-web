@@ -1,0 +1,1044 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lords of Finance — Sample</title>
+<meta name="description" content="A sample of the Lords of Finance app, with example data: the system and one example wallet. Nothing here is real, and no token exists yet.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#6E211D">
+<link rel="icon" href="../assets/emblem.webp" type="image/webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Grenze+Gotisch:wght@600&family=Montserrat:wght@500;600&display=swap">
+<style>
+:root{
+  --paper:#FFFFFF;
+  --wash:#F6F5F2;
+  --ink:#2A2623;
+  --ink-2:#5F5852;
+  --ink-3:#8C847C;
+  --rule:#E4DED6;
+  --rule-2:#CFC6BB;
+  --madder:#6E211D;
+  --brick:#A3402F;
+  --gold:#DDBB5F;
+  --gold-2:#C9A13B;
+  --gold-ink:#7A5A10;
+  --gold-wash:#F7EFD8;
+  --slate:#46607A;
+  --sage:#4A6043;
+  --sage-wash:#E9EFE5;
+  --link:#6E211D;
+  --link-hover:#A3402F;
+  --strip-bg:#6E211D;
+  --strip-ink:#F3DE9E;
+  --warn-bg:#FBF3F0;
+  --warn-rule:#A3402F;
+  --seal:#FBF7EE;
+  --plate:transparent;
+  --plate-pad:0px;
+  --field:#FFFFFF;
+  --btn-bg:#6E211D;
+  --btn-bg-hover:#862A24;
+  --btn-ink:#F3DE9E;
+  --btn-rule:#C9A13B;
+  /* Coverage zones: one-hue ordinal ramp, low coverage to high (validated) */
+  --z1:#93A9BE;
+  --z2:#7590AA;
+  --z3:#5A7692;
+  --z4:#435D78;
+  --z5:#2E435A;
+  /* Two categories (validated pair) */
+  --c1:#C9A13B;
+  --c2:#A3402F;
+  --font-name:"Grenze Gotisch","Alegreya","Palatino Linotype",Palatino,Georgia,serif;
+  --font-serif:"Alegreya","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --font-sans:"Montserrat","Helvetica Neue",Arial,sans-serif;
+  --gl:max(16px, env(safe-area-inset-left, 0px));
+  --gr:max(16px, env(safe-area-inset-right, 0px));
+  --maxw:1120px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --paper:#1B1815;
+    --wash:#24201C;
+    --ink:#EEE7DC;
+    --ink-2:#BDB2A5;
+    --ink-3:#938A7F;
+    --rule:#37312B;
+    --rule-2:#4E463E;
+    --madder:#E39A8C;
+    --brick:#E0846F;
+    --gold-2:#C9A13B;
+    --gold-ink:#E5C978;
+    --gold-wash:#2E2716;
+    --slate:#9DB4CA;
+    --sage:#A9BF9E;
+    --sage-wash:#202A1D;
+    --link:#EBA99B;
+    --link-hover:#F3C4B9;
+    --strip-bg:#4A1714;
+    --strip-ink:#EBCB72;
+    --warn-bg:#2A1916;
+    --warn-rule:#C2604C;
+    --seal:#F4EFE6;
+    --plate:#F4EFE6;
+    --plate-pad:12px;
+    --field:#24201C;
+    --btn-bg:#5A1B17;
+    --btn-bg-hover:#6E211D;
+    --btn-ink:#EBCB72;
+    --btn-rule:#B48E30;
+    --z1:#46596F;
+    --z2:#5B7390;
+    --z3:#7590AF;
+    --z4:#97B0CA;
+    --z5:#BCCEE0;
+    --c1:#B48E30;
+    --c2:#A94436;
+    color-scheme:dark;
+  }
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-padding-top:96px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-serif);font-size:17px;line-height:1.55;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--link);text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{color:var(--link-hover)}
+:focus-visible{outline:2px solid var(--slate);outline-offset:2px;border-radius:2px}
+h1,h2,h3{font-family:var(--font-serif);font-weight:500;color:var(--ink);margin:0}
+h1{font-size:clamp(32px,4.8vw,46px);line-height:1.1;letter-spacing:-.005em}
+h2{font-size:clamp(25px,3.2vw,31px);line-height:1.18}
+h3{font-size:21px;line-height:1.25}
+p{margin:0 0 .8em}
+.wrap{max-width:var(--maxw);margin-inline:auto}
+.gutter{padding-left:var(--gl);padding-right:var(--gr)}
+.sans{font-family:var(--font-sans)}
+.tnum{font-variant-numeric:tabular-nums lining-nums}
+.muted{color:var(--ink-2)}
+.small{font-size:15px;line-height:1.5;color:var(--ink-2)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:absolute;left:-9999px;top:0}
+.skip:focus{left:var(--gl);top:64px;background:var(--paper);padding:8px 12px;z-index:50}
+
+/* Sample band, fixed at the top */
+.band{position:sticky;top:0;z-index:40;background:var(--strip-bg);color:var(--strip-ink);font-family:var(--font-sans);font-size:14.5px;font-weight:600;line-height:1.45;letter-spacing:.01em;text-align:center;padding:10px var(--gr) 10px var(--gl);padding-top:max(10px, env(safe-area-inset-top, 0px));border-bottom:2px solid var(--gold-2)}
+.band p{margin:0 auto;max-width:var(--maxw)}
+.band b{text-transform:uppercase;letter-spacing:.14em}
+@media (max-width:520px){.band{font-size:13px;padding-top:max(8px, env(safe-area-inset-top, 0px));padding-bottom:8px}}
+
+/* Masthead */
+.masthead{border-bottom:1px solid var(--rule);padding-top:12px;padding-bottom:10px}
+.masthead .wrap{display:flex;align-items:center;flex-wrap:wrap;gap:8px 24px}
+.brand{display:flex;align-items:center;gap:10px;margin-right:auto;text-decoration:none;color:var(--ink)}
+.brand img{width:56px;height:auto;background:var(--seal);border-radius:4px;padding:2px}
+.brand span{font-family:var(--font-name);font-weight:600;font-size:28px;line-height:1;color:var(--ink);letter-spacing:.01em}
+.back{font-family:var(--font-sans);font-weight:500;font-size:12.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-2);text-decoration:none;padding:8px 0 6px;border-bottom:2px solid transparent}
+.back:hover{color:var(--madder);border-bottom-color:var(--gold-2)}
+@media (max-width:520px){.brand img{width:44px}.brand span{font-size:23px}.back{font-size:11.5px;letter-spacing:.1em}}
+
+main{padding-top:36px;padding-bottom:24px}
+
+/* Intro */
+.intro{display:grid;gap:24px 48px;align-items:center}
+@media (min-width:900px){.intro{grid-template-columns:minmax(0,7fr) minmax(0,4fr)}}
+.status{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-sans);font-size:12.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-ink);background:var(--gold-wash);border-radius:999px;padding:5px 12px 5px 10px;margin-bottom:16px}
+.status::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--gold-2)}
+.lede{font-size:19px;line-height:1.5;color:var(--ink-2);max-width:56ch;margin:14px 0 0}
+.plate{margin:0;background:var(--plate);padding:var(--plate-pad);border-radius:3px}
+.plate img{width:100%}
+@media (max-width:640px){.intro .plate{display:none}}
+
+/* Tabs */
+.tabs{display:flex;gap:32px;border-bottom:1px solid var(--rule-2);margin:36px 0 34px}
+.tabs [role="tab"]{appearance:none;-webkit-appearance:none;background:none;border:0;border-bottom:3px solid transparent;margin:0 0 -1px;padding:10px 2px 8px;font-family:var(--font-serif);font-size:27px;line-height:1.2;color:var(--ink-2);cursor:pointer}
+.tabs [role="tab"]:hover{color:var(--madder)}
+.tabs [role="tab"][aria-selected="true"]{color:var(--madder);border-bottom-color:var(--gold-2)}
+[role="tabpanel"]:focus-visible{outline-offset:8px}
+.panel>section+section{margin-top:64px}
+.section-head{margin-bottom:22px;max-width:66ch}
+.section-head p{color:var(--ink-2);margin:8px 0 0;font-size:17.5px}
+.section-head h2 small{font-family:var(--font-sans);font-size:12.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin-left:10px;white-space:nowrap}
+
+/* Stat strip */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));border-top:1px solid var(--rule-2);border-bottom:1px solid var(--rule-2)}
+.stat{padding:14px 18px 14px 0;border-bottom:1px solid var(--rule)}
+.stat .k{font-family:var(--font-sans);font-size:12.5px;color:var(--ink-2);display:block}
+.stat .v{font-family:var(--font-sans);font-size:21px;font-weight:600;font-variant-numeric:lining-nums;display:block;margin-top:2px;letter-spacing:-.01em}
+.stat .s{font-family:var(--font-sans);font-size:12.5px;color:var(--ink-2);display:block;line-height:1.4}
+@media (min-width:900px){.stat{border-bottom:0}.stat+.stat{padding-left:18px;border-left:1px solid var(--rule)}}
+
+/* Notice (launch cap) */
+.notice{background:var(--warn-bg);border-top:3px double var(--warn-rule);border-bottom:3px double var(--warn-rule);padding:26px clamp(16px,4vw,40px)}
+.notice h2{margin-bottom:4px}
+.meters{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:18px 40px;margin:20px 0 22px;padding:16px 0;border-top:1px solid var(--rule-2);border-bottom:1px solid var(--rule-2)}
+.meter .k{display:block;font-family:var(--font-sans);font-size:13px;color:var(--ink-2)}
+.meter .n{display:block;font-family:var(--font-serif);font-size:clamp(28px,3.6vw,34px);line-height:1.15;font-variant-numeric:lining-nums}
+.meter .n small{font-family:var(--font-sans);font-size:14px;color:var(--ink-2);font-weight:500}
+.track{height:8px;background:var(--rule-2);border-radius:4px;margin:8px 0 6px;overflow:hidden}
+.track span{display:block;height:100%;background:var(--z4);border-radius:4px}
+.meter .s{display:block;font-family:var(--font-sans);font-size:13px;color:var(--ink-2)}
+.points{list-style:none;margin:0;padding:0;max-width:72ch}
+.points li{position:relative;padding:7px 0 7px 26px;font-size:17.5px;line-height:1.5}
+.points li::before{content:"";position:absolute;left:2px;top:15px;width:12px;height:12px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-10 -10 20 20'%3E%3Cg fill='%23C0574A'%3E%3Ccircle cx='0' cy='-4.2' r='3.9'/%3E%3Ccircle cx='4.2' cy='0' r='3.9'/%3E%3Ccircle cx='0' cy='4.2' r='3.9'/%3E%3Ccircle cx='-4.2' cy='0' r='3.9'/%3E%3C/g%3E%3C/svg%3E") center/12px no-repeat}
+.points strong{font-weight:700}
+.points.quiet li{font-size:16px;color:var(--ink-2)}
+
+/* Coverage */
+.cov-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px;margin-bottom:6px}
+.cov-big{font-family:var(--font-serif);font-size:clamp(64px,10vw,96px);line-height:.95;font-weight:500;font-variant-numeric:lining-nums}
+.cov-zone{font-family:var(--font-sans);font-size:15px;font-weight:600;color:var(--ink)}
+.cov-zone::before{content:"";display:inline-block;width:12px;height:12px;border-radius:2px;background:var(--z5);margin-right:8px;vertical-align:-1px}
+.scale{position:relative;height:104px;margin:20px 0 4px}
+.sc-band{position:absolute;left:0;right:0;top:40px;height:14px}
+.sc-band span{position:absolute;top:0;bottom:0}
+.sc-band span+span{box-shadow:inset 2px 0 0 var(--paper)}
+.sc-b1{background:var(--z1);border-radius:2px 0 0 2px}
+.sc-b2{background:var(--z2)}
+.sc-b3{background:var(--z3)}
+.sc-b4{background:var(--z4)}
+.sc-b5{background:var(--z5);border-radius:0 2px 2px 0}
+.sc-tick{position:absolute;top:34px;width:3px;height:26px;margin-left:-1.5px;background:var(--ink)}
+.sc-tick::before,.sc-tick::after{content:"";position:absolute;left:-2px;width:7px;height:2px;background:var(--ink)}
+.sc-tick::before{top:0}
+.sc-tick::after{bottom:0}
+.sc-tick.stop,.sc-tick.stop::before,.sc-tick.stop::after{background:var(--brick)}
+.sc-auto{position:absolute;top:31px;height:7px;border:2px solid var(--gold-2);border-bottom:0;border-radius:2px 2px 0 0}
+.sc-lab{position:absolute;top:64px;transform:translateX(-50%);font-family:var(--font-sans);font-size:12px;line-height:1.2;color:var(--ink-2);white-space:nowrap}
+.sc-lab b{color:var(--ink);font-weight:600}
+.sc-lab.stop b{color:var(--brick)}
+.sc-lab.r2{top:84px;color:var(--ink-3)}
+.sc-lab.top{top:12px}
+.sc-lab.top b{color:var(--gold-ink)}
+.sc-lab.start{transform:none}
+.sc-lab.end{transform:translateX(-100%)}
+.sc-lab .nm{display:none}
+@media (min-width:900px){.sc-lab .nm{display:inline}}
+.sc-mark{position:absolute;top:0;width:0;height:54px}
+.sc-mark::after{content:"";position:absolute;left:-.75px;top:22px;bottom:0;border-left:1.5px solid var(--ink)}
+.sc-coin{position:absolute;left:-10px;top:2px;width:20px;height:20px;border-radius:50%;background:var(--gold);border:1.5px solid #2A2623;box-shadow:inset 0 0 0 3px var(--gold),inset 0 0 0 4px #7A5A10}
+.sc-now{position:absolute;right:16px;top:4px;font-family:var(--font-sans);font-size:13px;font-weight:600;white-space:nowrap;color:var(--ink)}
+.zones{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:2px 36px;margin:14px 0 0;padding:0;list-style:none}
+.zones li{display:grid;grid-template-columns:14px minmax(0,1fr);gap:12px;padding:10px 0;border-bottom:1px dotted var(--rule-2);font-size:15.5px;line-height:1.45}
+.zones .sw{width:14px;height:14px;margin-top:4px;border-radius:2px}
+.zones .sw.auto{background:none;border:2px solid var(--gold-2);border-bottom:0;height:9px;margin-top:6px;border-radius:2px 2px 0 0}
+.zones b{font-family:var(--font-sans);font-size:13px;font-weight:600;display:block;margin-bottom:2px}
+.zones .now b::after{content:"Now";margin-left:8px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-ink);background:var(--gold-wash);border-radius:999px;padding:1px 8px}
+
+/* Tables */
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
+table{width:100%;border-collapse:collapse;font-family:var(--font-sans);font-size:13.5px;font-variant-numeric:tabular-nums lining-nums}
+th{font-weight:600;text-align:left;color:var(--ink-2);border-bottom:1px solid var(--rule-2);padding:8px 12px 8px 0;font-size:12.5px;vertical-align:bottom}
+td{padding:10px 12px 10px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+th.r,td.r{text-align:right}
+td .muted{display:block;font-size:12.5px}
+caption{text-align:left;font-family:var(--font-sans);font-size:12.5px;color:var(--ink-2);caption-side:bottom;padding-top:8px;line-height:1.45}
+
+/* Two columns */
+.two{display:grid;grid-template-columns:minmax(0,1fr);gap:36px 56px}
+@media (min-width:900px){.two{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.two>*{min-width:0}
+
+/* Data rows */
+.rows{margin:0}
+.rows>div{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:8px 0;border-bottom:1px dotted var(--rule-2)}
+.rows>div:last-child{border-bottom:0}
+.rows dt{font-family:var(--font-sans);font-size:13.5px;color:var(--ink-2);min-width:0}
+.rows dd{margin:0;font-family:var(--font-sans);font-size:14.5px;font-weight:500;text-align:right;font-variant-numeric:tabular-nums lining-nums;overflow-wrap:anywhere;max-width:62%}
+.rows dd small{display:block;font-weight:400;font-size:12.5px;color:var(--ink-2)}
+.rows .sw{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:8px;vertical-align:-1px}
+.rows .total dt,.rows .total dd{font-weight:600;color:var(--ink)}
+.rows .sub dt{padding-left:14px}
+
+/* Reserve composition */
+.comp{position:relative;height:86px;margin:18px 0 8px}
+.comp-bar{position:absolute;left:0;right:0;top:26px;height:22px;display:flex;border-radius:3px;overflow:hidden}
+.comp-bar span{display:block;height:100%}
+.comp-bar span+span{box-shadow:inset 2px 0 0 var(--paper)}
+.comp-band{position:absolute;top:16px;height:8px;border:2px solid var(--ink-2);border-bottom:0;border-radius:2px 2px 0 0}
+.comp-tick{position:absolute;top:20px;height:34px;width:2px;margin-left:-1px;background:var(--ink)}
+.comp-lab{position:absolute;top:0;transform:translateX(-50%);font-family:var(--font-sans);font-size:12px;color:var(--ink-2);white-space:nowrap}
+.comp-lab.low{top:58px}
+.comp-lab b{color:var(--ink);font-weight:600}
+.aside{margin:0;padding:0;list-style:none}
+.aside li{position:relative;padding:9px 0 9px 24px;border-bottom:1px dotted var(--rule-2);font-size:15.5px;line-height:1.5}
+.aside li::before{content:"";position:absolute;left:2px;top:16px;width:10px;height:10px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-10 -10 20 20'%3E%3Cg fill='%23C9A13B'%3E%3Ccircle cx='0' cy='-4.2' r='3.9'/%3E%3Ccircle cx='4.2' cy='0' r='3.9'/%3E%3Ccircle cx='0' cy='4.2' r='3.9'/%3E%3Ccircle cx='-4.2' cy='0' r='3.9'/%3E%3C/g%3E%3C/svg%3E") center/10px no-repeat}
+.aside li b{font-family:var(--font-sans);font-size:13.5px;font-weight:600}
+
+/* Yields */
+.yields{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:12px 36px;padding:14px 0;border-top:1px solid var(--rule-2);border-bottom:1px solid var(--rule-2);margin-bottom:14px}
+.yields .k{display:block;font-family:var(--font-sans);font-size:13px;color:var(--ink-2)}
+.yields .v{display:block;font-family:var(--font-serif);font-size:clamp(32px,4.2vw,40px);line-height:1.1;font-variant-numeric:lining-nums}
+.yields .v small{font-family:var(--font-sans);font-size:14px;color:var(--ink-2);font-weight:500}
+.past{display:inline-block;font-family:var(--font-sans);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-ink);background:var(--gold-wash);border-radius:999px;padding:2px 10px;margin-bottom:10px}
+
+/* Series */
+.coins{list-style:none;margin:16px 0 18px;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:4px 20px;font-size:17px}
+.coins li{display:flex;align-items:baseline;gap:8px;padding:6px 0;border-bottom:1px dotted var(--rule-2);color:var(--ink-2)}
+.coins .k{font-family:var(--font-sans);font-size:12px;font-variant-numeric:tabular-nums;min-width:18px;color:var(--ink-3)}
+.coins .nm{color:var(--ink)}
+.coins .st{margin-left:auto;font-family:var(--font-sans);font-size:11.5px;color:var(--ink-3)}
+.coins li.active{border-bottom-color:var(--gold-2)}
+.coins li.active .nm{color:var(--madder);font-weight:700}
+.coins li.active .st{color:var(--sage);font-weight:600}
+
+/* DUKES */
+.facts{list-style:none;margin:0;padding:0}
+.facts>li{padding:10px 0;border-bottom:1px dotted var(--rule-2)}
+.facts .k{display:block;font-family:var(--font-sans);font-size:13px;font-weight:600;color:var(--ink)}
+.facts p{margin:2px 0 0;font-size:16px;color:var(--ink-2)}
+.chart{position:relative;margin:28px 0 6px;padding-top:4px}
+.chart svg{display:block;width:100%;height:150px}
+.ch-today{position:absolute;top:-18px;font-family:var(--font-sans);font-size:12px;font-weight:600;color:var(--ink);white-space:nowrap}
+.ch-peak{position:absolute;top:2px;font-family:var(--font-sans);font-size:12px;color:var(--ink-2);white-space:nowrap}
+.ch-axis{position:relative;height:22px;font-family:var(--font-sans);font-size:12px;color:var(--ink-2)}
+.ch-axis span{position:absolute;top:4px;transform:translateX(-50%);white-space:nowrap;font-variant-numeric:tabular-nums}
+.ch-axis span.start{transform:none}
+.ch-axis span.end{transform:translateX(-100%)}
+.legend{display:flex;flex-direction:column;gap:6px;margin:10px 0 0;padding:0;list-style:none;font-family:var(--font-sans);font-size:13px;color:var(--ink-2)}
+.legend li{display:flex;align-items:baseline;gap:10px}
+.legend i{flex:none;display:inline-block;width:14px;height:10px;border-radius:2px}
+
+/* Me: wallet */
+.wallet{display:grid;gap:18px 48px;align-items:start;margin-bottom:36px}
+@media (min-width:900px){.wallet{grid-template-columns:minmax(0,1fr) auto}}
+.addr{font-family:var(--font-sans);font-size:15px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink)}
+.wallet .meta{font-family:var(--font-sans);font-size:13px;color:var(--ink-2);margin:4px 0 0}
+.total-k{display:block;font-family:var(--font-sans);font-size:13px;color:var(--ink-2)}
+.total-v{display:block;font-family:var(--font-serif);font-size:clamp(44px,6vw,60px);line-height:1;font-weight:500;font-variant-numeric:lining-nums;margin:4px 0 8px}
+.wallet .total p{font-size:14.5px;color:var(--ink-2);max-width:44ch;margin:0}
+
+/* Holdings */
+.holdings{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:44px 40px}
+.holding{border-top:3px double var(--acc);padding-top:18px;display:flex;flex-direction:column;min-width:0}
+.holding header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.seal{flex:none;display:flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:50%;background:var(--seal);box-shadow:inset 0 0 0 1px var(--gold-2)}
+.seal svg{width:40px;height:40px}
+.holding h3{font-size:24px;line-height:1.15}
+.holding header .meta{display:block;font-family:var(--font-sans);font-size:12.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin-top:2px}
+.bal{display:flex;align-items:baseline;flex-wrap:wrap;gap:2px 10px;margin-bottom:8px}
+.bal .n{font-family:var(--font-serif);font-size:36px;line-height:1.1;font-weight:500;font-variant-numeric:lining-nums}
+.bal .u{font-family:var(--font-sans);font-size:13px;font-weight:600;color:var(--ink-2)}
+.bal .usd{flex-basis:100%;font-family:var(--font-sans);font-size:14.5px;color:var(--ink-2)}
+.earn{margin:14px 0 0;padding:12px 14px;background:var(--wash);border-left:3px solid var(--acc);font-size:16px;line-height:1.5}
+.earn b{font-family:var(--font-sans);font-size:13px;font-weight:600;color:var(--ink);margin-right:4px}
+.acc-sol{--acc:var(--gold-2)}
+.acc-flor{--acc:var(--brick)}
+.acc-dukes{--acc:var(--slate)}
+
+/* Orders */
+.orders{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule-2)}
+.orders>li{display:grid;gap:6px 24px;padding:14px 0;border-bottom:1px solid var(--rule)}
+@media (min-width:900px){.orders>li{grid-template-columns:minmax(0,1.1fr) minmax(0,1.3fr) minmax(0,1.2fr);align-items:start}}
+.orders .what{font-family:var(--font-sans);font-size:14.5px;font-weight:600}
+.orders .what span{display:block;font-weight:400;font-size:12.5px;color:var(--ink-2);margin-top:2px}
+.orders .amt{font-family:var(--font-sans);font-size:14px;font-variant-numeric:tabular-nums lining-nums}
+.orders .amt span{display:block;font-size:12.5px;color:var(--ink-2);margin-top:2px}
+.orders .wait{font-family:var(--font-sans);font-size:14px}
+.orders .wait b{font-weight:600}
+.orders .wait span{display:block;font-size:12.5px;color:var(--ink-2);margin-top:2px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-sans);font-size:12px;font-weight:600;padding:2px 9px 2px 7px;border-radius:999px;margin-bottom:6px;white-space:nowrap}
+.chip::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.chip.wait{background:var(--gold-wash);color:var(--gold-ink)}
+.chip.done{background:var(--sage-wash);color:var(--sage)}
+
+/* Before you place an order */
+.before{border-top:3px double var(--gold-2);border-bottom:3px double var(--gold-2);padding:20px 0 14px}
+.before h2{font-size:clamp(22px,2.6vw,26px);margin-bottom:6px}
+
+/* Action cards */
+.actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:44px 48px}
+.card{border-top:1px solid var(--rule-2);padding-top:18px;min-width:0;display:flex;flex-direction:column}
+.card h3{margin-bottom:4px}
+.card .intro-p{font-size:16px;color:var(--ink-2);margin:0 0 16px}
+.field{margin-bottom:14px}
+.field>label,.field>.lbl{display:block;font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--ink-2);margin-bottom:6px}
+.ig{display:flex;align-items:stretch;border:1px solid var(--rule-2);border-radius:2px;background:var(--field)}
+.ig:focus-within{border-color:var(--slate)}
+.ig input{flex:1;min-width:0;border:0;background:transparent;font-family:var(--font-sans);font-size:19px;font-weight:500;padding:9px 12px;color:var(--ink);font-variant-numeric:tabular-nums}
+.ig input:focus-visible{outline:none}
+.ig .unit{display:flex;align-items:center;padding:0 12px;border-left:1px solid var(--rule);background:var(--wash);font-family:var(--font-sans);font-size:13.5px;font-weight:600;color:var(--ink)}
+.preview{background:var(--wash);border-top:2px solid var(--rule-2);padding:4px 14px 6px;margin:2px 0 14px}
+.preview .rows>div{border-bottom-color:var(--rule-2)}
+.note{font-size:15px;line-height:1.5;color:var(--ink-2);margin:0 0 12px}
+.warn{font-size:15px;line-height:1.5;margin:0 0 12px;padding:10px 12px;background:var(--warn-bg);border-left:3px solid var(--warn-rule)}
+.warn p{margin:0}
+.warn p+p{margin-top:6px}
+.state{font-family:var(--font-sans);font-size:13.5px;font-weight:600;color:var(--brick);margin:0 0 12px}
+fieldset{border:0;padding:0;margin:0 0 14px;min-width:0}
+legend{font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--ink-2);margin-bottom:6px;padding:0}
+.choice{display:flex;gap:10px;align-items:flex-start;font-family:var(--font-sans);font-size:14px;line-height:1.4;padding:6px 0;cursor:pointer}
+.choice input{margin:2px 0 0;width:18px;height:18px;accent-color:var(--brick);flex:none}
+.choice .ig{margin-top:6px;max-width:180px}
+.step{display:block;font-family:var(--font-sans);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-ink);margin:4px 0 8px}
+.do{margin-top:auto;padding-top:6px}
+.btn-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{font-family:var(--font-sans);font-weight:600;font-size:12.5px;letter-spacing:.11em;text-transform:uppercase;line-height:1.2;padding:11px 18px;min-height:44px;border-radius:2px;border:1px solid var(--btn-rule);background:var(--btn-bg);color:var(--btn-ink);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;text-align:center}
+.btn:hover{background:var(--btn-bg-hover)}
+.btn.secondary{background:var(--paper);color:var(--madder);border-color:var(--madder)}
+.btn.secondary:hover{background:var(--wash)}
+.sample-msg{font-family:var(--font-sans);font-size:13.5px;font-weight:600;color:var(--madder);margin:8px 0 0}
+.sample-msg:empty{display:none}
+
+/* Footer */
+.foot{margin-top:72px;padding-top:22px;padding-bottom:40px;border-top:1px solid var(--rule-2)}
+.foot .wrap{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;font-family:var(--font-sans);font-size:12.5px;color:var(--ink-2)}
+.foot img{width:42px;background:var(--seal);border-radius:4px;padding:2px}
+.foot .nm{font-family:var(--font-name);font-size:21px;color:var(--ink);font-weight:600}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-purse" viewBox="0 0 48 48">
+      <path d="M18.5 17.5C9.5 22.5 8.5 37.5 14.5 41.5c5 3.3 14.5 3.3 19 0 6-4 5-19-4-24z" fill="#C2A27C" stroke="#2A2623" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M21 25c-1.6 4.5-1.2 9.5 1 13.5M28.5 24c1.4 4 1.2 9-.6 12.5" fill="none" stroke="#6B4A32" stroke-width="1" opacity=".55"/>
+      <path d="M17.5 11.5c2-2.6 4.3-.6 6.5-3 2.2 2.4 4.5.4 6.5 3l-1.2 6h-10.6z" fill="#D7BE9C" stroke="#2A2623" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M17 17.6h14" stroke="#6E211D" stroke-width="2.6" stroke-linecap="round"/>
+      <circle cx="34.5" cy="37.5" r="6.6" fill="#DDBB5F" stroke="#2A2623" stroke-width="1.5"/>
+      <circle cx="34.5" cy="37.5" r="3.9" fill="none" stroke="#7A5A10" stroke-width="1"/>
+    </symbol>
+    <symbol id="i-helm" viewBox="0 0 48 48">
+      <path d="M24 7.5C31 7.5 35.5 11.5 35.5 19v22h-11.5z" fill="#4E5862"/>
+      <path d="M24 7.5C17 7.5 12.5 11.5 12.5 19v22H24z" fill="#E6E9EC"/>
+      <rect x="13.2" y="20" width="21.6" height="3.4" fill="#2A2623"/>
+      <path d="M24 8v12M24 23.5V40.5M18 31.5h12" stroke="#DDBB5F" stroke-width="2.2"/>
+      <g fill="#2A2623"><circle cx="16.5" cy="34" r=".9"/><circle cx="16.5" cy="37" r=".9"/></g>
+      <g fill="#E6E9EC"><circle cx="31.5" cy="34" r=".9"/><circle cx="31.5" cy="37" r=".9"/></g>
+      <path d="M12.5 41V19C12.5 11.5 17 7.5 24 7.5S35.5 11.5 35.5 19v22z" fill="none" stroke="#2A2623" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-coronet" viewBox="0 0 48 48">
+      <path d="M12.5 29c0-9 5-14.5 11.5-14.5S35.5 20 35.5 29z" fill="#8C2E27" stroke="#2A2623" stroke-width="1.5"/>
+      <circle cx="24" cy="13" r="2.4" fill="#DDBB5F" stroke="#2A2623" stroke-width="1.2"/>
+      <g fill="#DDBB5F" stroke="#2A2623" stroke-width="1.2" stroke-linejoin="round">
+        <path d="M24 19.5c-3.4 2.4-4.2 5.5-2.6 9h5.2c1.6-3.5.8-6.6-2.6-9z"/>
+        <path d="M13.5 21.5c-2.6 2.8-2.8 5.4-1.2 7.5h4.8c.6-3.2-.6-5.6-3.6-7.5z"/>
+        <path d="M34.5 21.5c2.6 2.8 2.8 5.4 1.2 7.5h-4.8c-.6-3.2.6-5.6 3.6-7.5z"/>
+      </g>
+      <rect x="9.5" y="28.5" width="29" height="8.5" rx="1" fill="#DDBB5F" stroke="#2A2623" stroke-width="1.5"/>
+      <circle cx="16" cy="32.75" r="1.9" fill="#46607A"/>
+      <circle cx="24" cy="32.75" r="2.1" fill="#8C2E27"/>
+      <circle cx="32" cy="32.75" r="1.9" fill="#46607A"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="band" role="note" aria-label="Sample">
+  <p><b>Sample</b> — example data. Nothing here is real, and no SOLIDUS, Florin or DUKES token exists yet.</p>
+</div>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead gutter">
+  <div class="wrap">
+    <a class="brand" href="../" aria-label="Lords of Finance, home page">
+      <img src="../assets/emblem.webp" alt="" width="240" height="190">
+      <span>Lords of Finance</span>
+    </a>
+    <a class="back" href="../">Back to lords.finance</a>
+  </div>
+</header>
+
+<main id="main" class="gutter">
+  <div class="wrap">
+
+    <div class="intro">
+      <div>
+        <span class="status">Sample of the app</span>
+        <h1>Two screens of the app, with example data</h1>
+        <p class="lede">How the system stands, and what one example wallet holds. The figures are invented for day 49 of the launch cap, at 10:40 UTC, and they agree with each other. No button does anything.</p>
+      </div>
+      <figure class="plate">
+        <img src="../assets/scene.webp" width="1400" height="862" alt="Watercolor after a medieval manuscript: two money changers count gold coins at a red table, and two merchants pass a purse of coins between columns.">
+      </figure>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="Screens">
+      <button type="button" role="tab" id="tab-system" data-hash="system" aria-controls="panel-system" aria-selected="true" tabindex="0">The system</button>
+      <button type="button" role="tab" id="tab-me" data-hash="me" aria-controls="panel-me" aria-selected="false" tabindex="-1">Me</button>
+    </div>
+
+    <!-- ===================== THE SYSTEM ===================== -->
+    <div class="panel" id="panel-system" role="tabpanel" aria-labelledby="tab-system" tabindex="0">
+
+      <section aria-label="Key figures, example data">
+        <div class="stats">
+          <div class="stat"><span class="k">Coverage</span><span class="v">4.28</span><span class="s">Full share zone, 3 and above</span></div>
+          <div class="stat"><span class="k">SOLIDUS in circulation</span><span class="v">640,000</span><span class="s">Series 1, Solidus</span></div>
+          <div class="stat"><span class="k">Reserve</span><span class="v">$2,740,000</span><span class="s">1,096.0 ETH</span></div>
+          <div class="stat"><span class="k">ETH price</span><span class="v">$2,500.00</span><span class="s">Chainlink ETH/USD, round of 10:06 UTC</span></div>
+          <div class="stat"><span class="k">Mint / redeem</span><span class="v">$1.001 / $0.999</span><span class="s">per SOLIDUS, paid in ETH</span></div>
+        </div>
+      </section>
+
+      <section class="notice" aria-labelledby="h-cap">
+        <h2 id="h-cap">Launch cap: day 49 of 90</h2>
+        <p class="sans" style="font-size:14px;color:var(--ink-2);margin:0">For the 90 days after the start, amounts are limited. In this example the cap ends in 41 days.</p>
+        <div class="meters">
+          <div class="meter">
+            <span class="k">SOLIDUS in circulation</span>
+            <span class="n">640,000 <small>of 1,000,000</small></span>
+            <div class="track" aria-hidden="true"><span style="width:64%"></span></div>
+            <span class="s">64% used. Room for 360,000 more.</span>
+          </div>
+          <div class="meter">
+            <span class="k">Capital of the Lords</span>
+            <span class="n">$2.1 M <small>of $4 M</small></span>
+            <div class="track" aria-hidden="true"><span style="width:52.5%"></span></div>
+            <span class="s">52.5% used. Room for $1,900,000 more in entries.</span>
+          </div>
+          <div class="meter">
+            <span class="k">Time</span>
+            <span class="n">Day 49 <small>of 90</small></span>
+            <div class="track" aria-hidden="true"><span style="width:54.44%"></span></div>
+            <span class="s">The cap ends in 41 days.</span>
+          </div>
+        </div>
+        <ul class="points">
+          <li>Until the cap ends, in 41 days in this example, SOLIDUS is not yet a stablecoin: it could be worth more than one dollar.</li>
+          <li><strong>During the cap the code is new, and you can lose your money.</strong></li>
+        </ul>
+        <ul class="points quiet" style="margin-top:6px">
+          <li>While the SOLIDUS cap is full, no new SOLIDUS can be minted. Redemptions at $0.999 stay open.</li>
+          <li>The Lords’ cap limits only new entries: if ETH rises, their capital can grow past $4,000,000.</li>
+          <li>Days 0 to 30 of the cap were for Lords only. Minting opened on day 30.</li>
+          <li>The team may mint and enter during the cap, from publicly declared addresses.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="h-cov">
+        <div class="section-head">
+          <h2 id="h-cov">Coverage</h2>
+          <p>The reserve divided by the SOLIDUS in circulation: $2,740,000 ÷ 640,000 = 4.28. The reserve holds $4.28 of ETH for every SOLIDUS. Each threshold changes what the protocol allows.</p>
+        </div>
+        <div class="cov-head">
+          <span class="cov-big">4.28</span>
+          <span class="cov-zone">Full share zone</span>
+        </div>
+
+        <div class="scale" role="img" aria-label="Coverage scale from 1 to 5. Thresholds: 1.2 stop, 1.3 mint floor, 1.45 to 1.55 default automatic redemption, 2 fast mints, 3 full share. Coverage now 4.28, in the full share zone.">
+          <div class="sc-band" aria-hidden="true">
+            <span class="sc-b1" style="left:0;width:5%"></span>
+            <span class="sc-b2" style="left:5%;width:2.5%"></span>
+            <span class="sc-b3" style="left:7.5%;width:17.5%"></span>
+            <span class="sc-b4" style="left:25%;width:25%"></span>
+            <span class="sc-b5" style="left:50%;width:50%"></span>
+          </div>
+          <span class="sc-auto" style="left:11.25%;width:2.5%" aria-hidden="true"></span>
+          <span class="sc-tick stop" style="left:5%" aria-hidden="true"></span>
+          <span class="sc-tick" style="left:7.5%" aria-hidden="true"></span>
+          <span class="sc-tick" style="left:25%" aria-hidden="true"></span>
+          <span class="sc-tick" style="left:50%" aria-hidden="true"></span>
+          <div class="sc-mark" style="left:82.03%" aria-hidden="true"><span class="sc-coin"></span><span class="sc-now">Now 4.28</span></div>
+          <span class="sc-lab top start" style="left:11.25%" aria-hidden="true"><b>1.45–1.55</b><span class="nm"> Default automatic redemption</span></span>
+          <span class="sc-lab stop end" style="left:5%;margin-left:-4px" aria-hidden="true"><b>1.2</b><span class="nm"> Stop</span></span>
+          <span class="sc-lab start" style="left:7.5%;margin-left:4px" aria-hidden="true"><b>1.3</b><span class="nm"> Mint floor</span></span>
+          <span class="sc-lab" style="left:25%" aria-hidden="true"><b>2</b><span class="nm"> Fast mints</span></span>
+          <span class="sc-lab" style="left:50%" aria-hidden="true"><b>3</b><span class="nm"> Full share</span></span>
+          <span class="sc-lab" style="left:75%" aria-hidden="true">4</span>
+          <span class="sc-lab end" style="left:100%" aria-hidden="true">5</span>
+          <span class="sc-lab r2 start" style="left:0" aria-hidden="true">Scale from 1 to 5</span>
+        </div>
+
+        <ul class="zones">
+          <li><span class="sw" style="background:var(--z1)"></span><span><b>At or below 1.2 · Stop</b>If coverage touches 1.2 at a batch price, the series stops. Each SOLIDUS becomes a claim on $0.95 of ETH, the Lords keep the rest, and a new series opens.</span></li>
+          <li><span class="sw" style="background:var(--z2)"></span><span><b>1.2 to 1.3 · Combined mints only</b>SOLIDUS can be minted only with a combined order, which brings at least $2 of ETH per SOLIDUS and always raises coverage. Redemptions and proportional exits stay open.</span></li>
+          <li><span class="sw" style="background:var(--z3)"></span><span><b>1.3 to 2 · Mints wait one hour</b>The part of a mint or net withdrawal that would take coverage below 2 waits one hour, and nothing can take it below 1.3. SOLIDUS holders receive 10% of their fair share of the income.</span></li>
+          <li><span class="sw auto"></span><span><b>1.45 to 1.55 · Default automatic redemption</b>A wallet that never set a level is redeemed automatically at its own default level, somewhere in this band.</span></li>
+          <li><span class="sw" style="background:var(--z4)"></span><span><b>2 to 3 · Fast mints</b>Mints settle at the next price round. The SOLIDUS holders’ part of their fair share rises from 10% to 100%.</span></li>
+          <li class="now"><span class="sw" style="background:var(--z5)"></span><span><b>3 and above · Full share</b>SOLIDUS holders receive their full fair share of the income: per dollar, the same as the Lords.</span></li>
+        </ul>
+
+        <h3 style="margin:36px 0 6px">How far ETH would have to fall</h3>
+        <p class="small" style="max-width:66ch">The ETH price at which coverage would reach each threshold, if wstETH keeps its value in ETH and nothing else changes.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">Coverage</th><th scope="col">Threshold</th><th scope="col" class="r">ETH price</th><th scope="col" class="r">Change</th></tr></thead>
+            <tbody>
+              <tr><td>3</td><td>Full share ends</td><td class="r">$1,751.82</td><td class="r">−29.9%</td></tr>
+              <tr><td>2</td><td>Fast mints end</td><td class="r">$1,167.88</td><td class="r">−53.3%</td></tr>
+              <tr><td>1.55 to 1.45</td><td>Default automatic redemption</td><td class="r">$905.11 to $846.72</td><td class="r">−63.8% to −66.1%</td></tr>
+              <tr><td>1.3</td><td>Mint floor</td><td class="r">$759.12</td><td class="r">−69.6%</td></tr>
+              <tr><td>1.2</td><td>Stop</td><td class="r">$700.73</td><td class="r">−72.0%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-res">
+        <div class="section-head">
+          <h2 id="h-res">Reserve</h2>
+          <p>$2,740,000, or 1,096.0 ETH at $2,500.00. It holds only liquid ETH and wstETH, Lido’s staked ETH.</p>
+        </div>
+        <div class="two">
+          <div>
+            <div class="comp" role="img" aria-label="Liquid ETH 26.0% of the reserve, wstETH 74.0%. The thermostat keeps liquid ETH between 15% and 30%, with a target of 25%; wstETH can be at most 75%.">
+              <span class="comp-lab" style="left:15%" aria-hidden="true">15%</span>
+              <span class="comp-lab" style="left:30%" aria-hidden="true">30%</span>
+              <span class="comp-band" style="left:15%;width:15%" aria-hidden="true"></span>
+              <div class="comp-bar" aria-hidden="true">
+                <span style="width:26%;background:var(--c1)"></span>
+                <span style="width:74%;background:var(--c2)"></span>
+              </div>
+              <span class="comp-tick" style="left:25%" aria-hidden="true"></span>
+              <span class="comp-lab low" style="left:25%" aria-hidden="true"><b>25%</b> target</span>
+            </div>
+            <dl class="rows">
+              <div><dt><span class="sw" style="background:var(--c1)"></span>Liquid ETH</dt><dd>285.0 ETH<small>$712,500 · 26.0%</small></dd></div>
+              <div><dt><span class="sw" style="background:var(--c2)"></span>wstETH (Lido), valued in ETH</dt><dd>811.0 ETH<small>$2,027,500 · 74.0%</small></dd></div>
+              <div class="total"><dt>Total</dt><dd>1,096.0 ETH<small>$2,740,000</small></dd></div>
+            </dl>
+          </div>
+          <ul class="aside">
+            <li><b>Only wstETH.</b> All of the reserve’s staking depends on Lido. Another token would need a new version of the protocol.</li>
+            <li><b>Cap of 75%.</b> At most 75% of the reserve can be in wstETH. The cap limits new staking and never forces a sale.</li>
+            <li><b>Thermostat.</b> Liquid ETH stays between 15% and 30% of the reserve. Outside that band, ETH is staked, or wstETH is sold or withdrawn, back to 25%.</li>
+            <li><b>Valuation.</b> wstETH counts at the lower of its market price (Chainlink stETH/ETH) and its redemption value.</li>
+            <li><b>In kind.</b> Redemptions beyond the liquid ETH are paid in wstETH, pro rata.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-yield">
+        <div class="section-head">
+          <h2 id="h-yield">Yields</h2>
+          <p>What the last 7 days paid, annualized. Past figures, not a forecast: they change with coverage, with staking rewards and with the volume of mints and redemptions.</p>
+        </div>
+        <span class="past">Past 7 days</span>
+        <div class="yields">
+          <div><span class="k">SOLIDUS holders</span><span class="v">1.74% <small>a year</small></span></div>
+          <div><span class="k">Lords, per dollar of Florins</span><span class="v">1.74% <small>a year</small></span></div>
+        </div>
+        <div class="two">
+          <div>
+            <p class="small">With coverage at 3 or more, SOLIDUS holders receive their full fair share of the income, so both received the same per dollar. Below 3 the Lords receive more per dollar and SOLIDUS holders less.</p>
+            <p class="small">SOLIDUS holders are paid by rebase: balances grow. The Lords’ part stays in the reserve and raises the book value of a Florin. That value also moves with ETH, 1.30 times as much, and it can fall.</p>
+          </div>
+          <dl class="rows">
+            <div class="total"><dt>Income, last 7 days</dt><dd>$970</dd></div>
+            <div class="sub"><dt>Staking (wstETH)</dt><dd>$760</dd></div>
+            <div class="sub"><dt>Mint and redeem spread</dt><dd>$210</dd></div>
+            <div><dt>To DUKES holders, 10%</dt><dd>$97</dd></div>
+            <div><dt>To SOLIDUS holders</dt><dd>$203</dd></div>
+            <div><dt>To Lords</dt><dd>$670</dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-series">
+        <div class="section-head">
+          <h2 id="h-series">Series</h2>
+          <p>Active: Solidus (SOLIDUS), series 1 of 20, since the start. Each series carries the name of a historical coin.</p>
+        </div>
+        <ol class="coins" aria-label="The twenty series, in order">
+          <li class="active"><span class="k">1</span><span class="nm">Solidus</span><span class="st">Active</span></li>
+          <li><span class="k">2</span><span class="nm">Mancus</span><span class="st">Reserved</span></li>
+          <li><span class="k">3</span><span class="nm">Hyperpyron</span><span class="st">Reserved</span></li>
+          <li><span class="k">4</span><span class="nm">Morabetino</span><span class="st">Reserved</span></li>
+          <li><span class="k">5</span><span class="nm">Augustale</span><span class="st">Reserved</span></li>
+          <li><span class="k">6</span><span class="nm">Genovino</span><span class="st">Reserved</span></li>
+          <li><span class="k">7</span><span class="nm">Écu</span><span class="st">Reserved</span></li>
+          <li><span class="k">8</span><span class="nm">Dobla</span><span class="st">Reserved</span></li>
+          <li><span class="k">9</span><span class="nm">Noble</span><span class="st">Reserved</span></li>
+          <li><span class="k">10</span><span class="nm">Cruzado</span><span class="st">Reserved</span></li>
+          <li><span class="k">11</span><span class="nm">Angel</span><span class="st">Reserved</span></li>
+          <li><span class="k">12</span><span class="nm">Sovereign</span><span class="st">Reserved</span></li>
+          <li><span class="k">13</span><span class="nm">Excelente</span><span class="st">Reserved</span></li>
+          <li><span class="k">14</span><span class="nm">Mohur</span><span class="st">Reserved</span></li>
+          <li><span class="k">15</span><span class="nm">Doubloon</span><span class="st">Reserved</span></li>
+          <li><span class="k">16</span><span class="nm">Louis d’or</span><span class="st">Reserved</span></li>
+          <li><span class="k">17</span><span class="nm">Moidore</span><span class="st">Reserved</span></li>
+          <li><span class="k">18</span><span class="nm">Guinea</span><span class="st">Reserved</span></li>
+          <li><span class="k">19</span><span class="nm">Napoléon</span><span class="st">Reserved</span></li>
+          <li><span class="k">20</span><span class="nm">Eagle</span><span class="st">Reserved</span></li>
+        </ol>
+        <p style="max-width:70ch">If coverage touches 1.2 at a batch price, the series stops: each SOLIDUS becomes a claim on $0.95 of ETH at that round’s price, the Lords keep the rest of the reserve, and a new series opens at one dollar under the next name. After the twentieth, the system ends.</p>
+        <p class="small" style="max-width:70ch">Coverage is checked only at the prices that settle batches. With no orders, the next check can come hours later, and the payout can then be below $0.95. Anyone can ask for a check by placing a verification order.</p>
+      </section>
+
+      <section aria-labelledby="h-dukes">
+        <div class="section-head">
+          <h2 id="h-dukes">Dukes (DUKES) <small>The reward token</small></h2>
+          <p>DUKES holders receive 10% of all the protocol’s income, paid in Florins, for as long as the protocol exists. DUKES carry no vote and no other right.</p>
+        </div>
+        <div class="two">
+          <ul class="facts">
+            <li><span class="k">Fixed supply: 100,000,000 DUKES</span><p>All created at deployment. No more can ever be made.</p></li>
+            <li><span class="k">Launch-cap prize: 5,000,000</span><p>Shared evenly over the 90 days of the cap, 55,556 a day, among SOLIDUS holders and Lords. In the 30 days for Lords only, all of it went to Lords. So far: 2,722,222.</p></li>
+            <li><span class="k">Ramp after the cap: 45,000,000</span><p>Over the 730 days after the cap, from 123,288 a day down to zero in a straight line.</p></li>
+            <li><span class="k">Team: 50,000,000</span><p>The other half of the supply.</p></li>
+            <li><span class="k">How each day is shared</span><p>By the same fair-share rule as the income, dollar by dollar and by the time each balance is held. Today: 0.0203 DUKES a day per dollar, for SOLIDUS and Florins alike.</p></li>
+          </ul>
+          <div>
+            <h3 style="font-size:19px">DUKES for participants, per day</h3>
+            <div class="chart">
+              <span class="ch-today" style="left:5.98%">Today, day 49</span>
+              <span class="ch-peak" style="left:12%">123,288 a day</span>
+              <svg viewBox="0 0 820 130" preserveAspectRatio="none" role="img" aria-label="Daily DUKES for participants: 55,556 a day for days 0 to 90, the launch cap; then 123,288 a day falling in a straight line to zero on day 820. Today is day 49.">
+                <line x1="0" y1="129.5" x2="820" y2="129.5" stroke="var(--rule-2)" stroke-width="1" vector-effect="non-scaling-stroke"/>
+                <rect x="0" y="81.69" width="90" height="48.31" fill="var(--c1)" fill-opacity=".45"><title>Launch-cap prize: 55,556 DUKES a day, days 0 to 90</title></rect>
+                <polygon points="90,130 90,22.79 820,130" fill="var(--c2)" fill-opacity=".45"><title>Ramp: from 123,288 DUKES a day on day 90 to zero on day 820</title></polygon>
+                <line x1="0" y1="81.69" x2="90" y2="81.69" stroke="var(--c1)" stroke-width="2" vector-effect="non-scaling-stroke"/>
+                <line x1="90" y1="22.79" x2="820" y2="130" stroke="var(--c2)" stroke-width="2" vector-effect="non-scaling-stroke"/>
+                <line x1="90" y1="22.79" x2="90" y2="130" stroke="var(--c2)" stroke-width="2" vector-effect="non-scaling-stroke"/>
+                <line x1="89" y1="0" x2="89" y2="130" stroke="var(--paper)" stroke-width="2" vector-effect="non-scaling-stroke"/>
+                <line x1="49" y1="0" x2="49" y2="130" stroke="var(--ink)" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+              </svg>
+              <div class="ch-axis" aria-hidden="true">
+                <span class="start" style="left:0">0</span>
+                <span style="left:10.98%">90</span>
+                <span style="left:55.49%">455</span>
+                <span class="end" style="left:100%">820 days</span>
+              </div>
+            </div>
+            <ul class="legend">
+              <li><i style="background:var(--c1)"></i><span>Launch-cap prize, days 0 to 90: 55,556 a day</span></li>
+              <li><i style="background:var(--c2)"></i><span>Ramp, days 90 to 820: from 123,288 a day to zero</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================== ME ===================== -->
+    <div class="panel" id="panel-me" role="tabpanel" aria-labelledby="tab-me" tabindex="0" hidden>
+
+      <section aria-labelledby="h-wallet">
+        <div class="wallet">
+          <div>
+            <h2 id="h-wallet">Example wallet</h2>
+            <p class="meta"><span class="addr">0x7a3f…c91e</span> · not connected · day 49 of the cap, 10:40 UTC</p>
+          </div>
+          <div class="total">
+            <span class="total-k">Total value</span>
+            <span class="total-v">$4,130.50</span>
+            <p>SOLIDUS at one dollar each and Florins at book value. DUKES have no protocol price and are not counted.</p>
+          </div>
+        </div>
+
+        <div class="holdings">
+          <article class="holding acc-sol" aria-labelledby="h-h-sol">
+            <header>
+              <span class="seal" aria-hidden="true"><svg><use href="#i-purse"/></svg></span>
+              <div><h3 id="h-h-sol">Solidus (SOLIDUS)</h3><span class="meta">The dollar</span></div>
+            </header>
+            <div class="bal"><span class="n">2,500.00</span><span class="u">SOLIDUS</span><span class="usd">$2,500.00 at one dollar each</span></div>
+            <dl class="rows">
+              <div><dt>Releasing over the next 24 h</dt><dd>+0.12 SOLIDUS</dd></div>
+              <div><dt>Automatic redemption</dt><dd>At 1.4873<small>this wallet’s default; never set</small></dd></div>
+              <div><dt>DUKES, at current balances</dt><dd>50.7 a day</dd></div>
+            </dl>
+            <p class="earn"><b>What you earn:</b> a small share of the protocol’s income, added to your balance, and DUKES while you hold it. It is meant to stay worth about one dollar.</p>
+          </article>
+
+          <article class="holding acc-flor" aria-labelledby="h-h-flor">
+            <header>
+              <span class="seal" aria-hidden="true"><svg><use href="#i-helm"/></svg></span>
+              <div><h3 id="h-h-flor">Florins (FLOR)</h3><span class="meta">Your capital as a Lord</span></div>
+            </header>
+            <div class="bal"><span class="n">1,500.00</span><span class="u">FLOR</span><span class="usd">$1,630.50 at book value</span></div>
+            <dl class="rows">
+              <div><dt>Book value per Florin</dt><dd>$1.0870</dd></div>
+              <div><dt>Leverage on ETH</dt><dd>1.30×</dd></div>
+              <div><dt>ETH exposure</dt><dd>0.851 ETH</dd></div>
+              <div><dt>DUKES, at current balances</dt><dd>33.1 a day</dd></div>
+            </dl>
+            <p class="earn"><b>What you earn:</b> most of the protocol’s income (the staking yield on the reserve and the fees), and DUKES. It is a leveraged position in ETH: you gain more when ETH rises, and you can lose everything when it falls.</p>
+          </article>
+
+          <article class="holding acc-dukes" aria-labelledby="h-h-dukes" data-sample-box>
+            <header>
+              <span class="seal" aria-hidden="true"><svg><use href="#i-coronet"/></svg></span>
+              <div><h3 id="h-h-dukes">Dukes (DUKES)</h3><span class="meta">The reward token</span></div>
+            </header>
+            <div class="bal"><span class="n">3,386.4</span><span class="u">DUKES</span><span class="usd">0.0034% of all DUKES</span></div>
+            <dl class="rows">
+              <div><dt>In your wallet</dt><dd>2,900.0 DUKES</dd></div>
+              <div><dt>Earned, ready to claim</dt><dd>486.4 DUKES</dd></div>
+              <div><dt>Income share on your DUKES</dt><dd>0.0067 FLOR<small>ready to claim, $0.0073</small></dd></div>
+              <div><dt>At current balances</dt><dd>83.7 DUKES a day<small>50.7 from SOLIDUS, 33.1 from Florins</small></dd></div>
+            </dl>
+            <p class="earn"><b>What you earn:</b> a fixed share of the protocol’s income, paid in Florins, as long as the protocol exists.</p>
+            <div class="do" style="padding-top:16px">
+              <button type="button" class="btn" data-sample>Claim DUKES and Florins</button>
+              <p class="sample-msg" role="status"></p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-orders">
+        <div class="section-head">
+          <h2 id="h-orders">Orders</h2>
+          <p>Each order waits for the next Chainlink ETH/USD round observed at least 60 s after its block. The last round came at 10:06 UTC, at $2,500.00. The next one comes when ETH moves 0.5% from that price (to $2,487.50 or $2,512.50), or with the hourly update at about 11:06 UTC, whichever is sooner.</p>
+        </div>
+        <ul class="orders">
+          <li>
+            <div class="what">Mint SOLIDUS<span>Registered 10:21 UTC · fast path: coverage stays above 2 · fits under the cap</span></div>
+            <div class="amt">0.4000 ETH for about 999.0 SOLIDUS<span>ETH held in custody until the round</span></div>
+            <div class="wait"><span class="chip wait">Waiting for the next round</span><b>Estimated wait: up to 26 min more</b><span>Sooner if ETH moves 0.5%</span></div>
+          </li>
+          <li>
+            <div class="what">Enter as a Lord<span>Registered 10:34 UTC · fits under the Lords’ cap</span></div>
+            <div class="amt">0.2000 ETH for about 460.0 FLOR<span>at book value; ETH held in custody until the round</span></div>
+            <div class="wait"><span class="chip wait">Waiting for the next round</span><b>Estimated wait: up to 26 min more</b><span>Sooner if ETH moves 0.5%</span></div>
+          </li>
+          <li>
+            <div class="what">Redeem SOLIDUS<span>Registered 09:38 UTC</span></div>
+            <div class="amt">200.00 SOLIDUS for 0.07992 ETH<span>at $2,500.00, the round of 10:06 UTC</span></div>
+            <div class="wait"><span class="chip done">Settled at 10:06 UTC</span><b>Waited 28 min</b><span>Paid in ETH</span></div>
+          </li>
+        </ul>
+        <p class="small" style="margin-top:12px;max-width:72ch">“About” uses $2,500.00. The final amount uses the price of the round that settles the order. Orders can’t be cancelled.</p>
+      </section>
+
+      <section class="before" aria-labelledby="h-before">
+        <h2 id="h-before">Before you place an order</h2>
+        <ul class="points">
+          <li><strong>The price comes later.</strong> An order settles at the next Chainlink ETH/USD round observed at least 60 s after its block, not at the moment you place it. Chainlink publishes when ETH moves 0.5%, or once an hour. From 2 to 18 October 2026 that wait would have averaged 28.6 minutes. During the wait you stay exposed to ETH.</li>
+          <li><strong>One price source.</strong> Chainlink ETH/USD is the protocol’s only price, with nothing to check it against. A wrong round, or an action of the feed’s owner, can fire a false stop, prevent a stop or halt settlement.</li>
+          <li>Until the cap ends, in 41 days in this example, SOLIDUS is not yet a stablecoin: it could be worth more than one dollar.</li>
+          <li><strong>During the cap the code is new, and you can lose your money.</strong></li>
+          <li>During the cap, if the projected coverage is below your automatic-redemption level (by default between 1.45 and 1.55), your SOLIDUS is redeemed at $0.999 even if it is worth more in the market. If you buy above $0.999, set your level before you buy.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="h-actions">
+        <div class="section-head">
+          <h2 id="h-actions">Actions</h2>
+          <p>Each form shows a fixed example amount and what it would give at $2,500.00. No button does anything.</p>
+        </div>
+
+        <div class="actions">
+
+          <article class="card" aria-labelledby="h-a-mint" data-sample-box>
+            <h3 id="h-a-mint">Mint SOLIDUS</h3>
+            <p class="intro-p">Bring ETH, receive SOLIDUS at $1.001 each.</p>
+            <div class="field">
+              <label for="mint-eth">You pay</label>
+              <div class="ig"><input id="mint-eth" type="text" inputmode="decimal" value="0.4000" readonly><span class="unit">ETH</span></div>
+            </div>
+            <div class="preview">
+              <dl class="rows">
+                <div><dt>You receive</dt><dd>about 999.0 SOLIDUS<small>at $2,500.00; final at the round’s price</small></dd></div>
+                <div><dt>Path</dt><dd>Fast, next round<small>coverage stays above 2</small></dd></div>
+                <div><dt>Room under the cap</dt><dd>360,000 SOLIDUS</dd></div>
+                <div><dt>Fee</dt><dd>0.00004 ETH<small>0.01%, or more when gas is high</small></dd></div>
+              </dl>
+            </div>
+            <p class="note">With coverage below 2, the part that would take it below 2 would wait one hour; nothing can take it below 1.3.</p>
+            <div class="warn"><p>Until the cap ends, in 41 days in this example, SOLIDUS is not yet a stablecoin: it could be worth more than one dollar.</p><p><strong>During the cap the code is new, and you can lose your money.</strong></p></div>
+            <div class="do"><button type="button" class="btn" data-sample>Mint SOLIDUS</button><p class="sample-msg" role="status"></p></div>
+          </article>
+
+          <article class="card" aria-labelledby="h-a-redeem" data-sample-box>
+            <h3 id="h-a-redeem">Redeem SOLIDUS</h3>
+            <p class="intro-p">Return SOLIDUS, receive ETH at $0.999 each.</p>
+            <div class="field">
+              <label for="redeem-sol">You return</label>
+              <div class="ig"><input id="redeem-sol" type="text" inputmode="decimal" value="500.00" readonly><span class="unit">SOLIDUS</span></div>
+            </div>
+            <div class="preview">
+              <dl class="rows">
+                <div><dt>You receive</dt><dd>about 0.19980 ETH<small>$499.50 at $2,500.00; final at the round’s price</small></dd></div>
+                <div><dt>Wait</dt><dd>Next round<small>redemptions never wait longer</small></dd></div>
+                <div><dt>Liquid ETH in the reserve</dt><dd>285.0 ETH</dd></div>
+                <div><dt>Fee</dt><dd>0.01%<small>or more when gas is high</small></dd></div>
+              </dl>
+            </div>
+            <p class="note">Paid in ETH. If the redemptions of one batch exceed the liquid ETH, the rest is paid in wstETH, pro rata.</p>
+            <div class="do"><button type="button" class="btn" data-sample>Redeem SOLIDUS</button><p class="sample-msg" role="status"></p></div>
+          </article>
+
+          <article class="card" aria-labelledby="h-a-enter" data-sample-box>
+            <h3 id="h-a-enter">Enter as a Lord</h3>
+            <p class="intro-p">Bring ETH, receive Florins at book value.</p>
+            <div class="field">
+              <label for="enter-eth">You pay</label>
+              <div class="ig"><input id="enter-eth" type="text" inputmode="decimal" value="0.2000" readonly><span class="unit">ETH</span></div>
+            </div>
+            <div class="preview">
+              <dl class="rows">
+                <div><dt>Book value per Florin</dt><dd>$1.0870<small>final at the round’s price</small></dd></div>
+                <div><dt>You receive</dt><dd>about 460.0 FLOR</dd></div>
+                <div><dt>Leverage on ETH</dt><dd>1.30×<small>at coverage 4.28</small></dd></div>
+                <div><dt>Room under the Lords’ cap</dt><dd>$1,900,000</dd></div>
+                <div><dt>Fee</dt><dd>0.01%<small>or more when gas is high</small></dd></div>
+              </dl>
+            </div>
+            <p class="note">Florins absorb losses before SOLIDUS does, and they can be lost entirely.</p>
+            <div class="do"><button type="button" class="btn" data-sample>Enter as a Lord</button><p class="sample-msg" role="status"></p></div>
+          </article>
+
+          <article class="card" aria-labelledby="h-a-exit" data-sample-box>
+            <h3 id="h-a-exit">Proportional exit</h3>
+            <p class="intro-p">Return a fraction of all Florins together with the same fraction of all SOLIDUS, and take that fraction of each asset of the reserve.</p>
+            <div class="field">
+              <label for="exit-flor">Florins to return</label>
+              <div class="ig"><input id="exit-flor" type="text" inputmode="decimal" value="1,500.00" readonly><span class="unit">FLOR</span></div>
+            </div>
+            <div class="preview">
+              <dl class="rows">
+                <div><dt>Your fraction of all Florins</dt><dd>0.0776%</dd></div>
+                <div><dt>SOLIDUS you also return</dt><dd>496.91 SOLIDUS<small>you hold 2,500.00</small></dd></div>
+                <div><dt>You receive</dt><dd>0.22128 ETH and wstETH worth 0.62968 ETH<small>$2,127.41 in all</small></dd></div>
+                <div class="total"><dt>Net of the SOLIDUS</dt><dd>$1,630.50<small>the book value of your Florins</small></dd></div>
+              </dl>
+            </div>
+            <p class="note">In kind, at no price: it doesn’t wait for a round, has no fee and leaves coverage unchanged. Always open.</p>
+            <div class="do"><button type="button" class="btn" data-sample>Exit proportionally</button><p class="sample-msg" role="status"></p></div>
+          </article>
+
+          <article class="card" aria-labelledby="h-a-net" data-sample-box>
+            <h3 id="h-a-net">Net withdrawal</h3>
+            <p class="intro-p">Withdraw as a Lord without bringing ETH or SOLIDUS. The protocol settles your share of SOLIDUS for you and pays you the rest.</p>
+            <div class="field">
+              <label for="net-flor">Florins to withdraw</label>
+              <div class="ig"><input id="net-flor" type="text" inputmode="decimal" value="1,500.00" readonly><span class="unit">FLOR</span></div>
+            </div>
+            <div class="preview">
+              <dl class="rows">
+                <div><dt>Value of your Florins</dt><dd>$1,630.50</dd></div>
+                <div><dt>Spread, 0.1% on your SOLIDUS share</dt><dd>−$0.50<small>on 496.91 SOLIDUS</small></dd></div>
+                <div class="total"><dt>You receive</dt><dd>$1,630.00<small>paid in ETH, liquid or staked (wstETH)</small></dd></div>
+                <div class="sub"><dt>Liquid ETH</dt><dd>0.02232 ETH</dd></div>
+                <div class="sub"><dt>wstETH</dt><dd>worth 0.62968 ETH</dd></div>
+                <div><dt>Path</dt><dd>Fast, next round<small>coverage after: 4.28, above 2</small></dd></div>
+              </dl>
+            </div>
+            <p class="note">Settled at the round’s price, in the proportions of the reserve, with the cost of your SOLIDUS share taken from the ETH. With coverage between 1.3 and 2, Lords can exit this way without bringing ETH, and that lowers the coverage down to 1.3: the order waits one hour, and what would take coverage below 1.3 is returned in Florins.</p>
+            <div class="do"><button type="button" class="btn" data-sample>Withdraw</button><p class="sample-msg" role="status"></p></div>
+          </article>
+
+          <article class="card" aria-labelledby="h-a-comb" data-sample-box>
+            <h3 id="h-a-comb">Combined order</h3>
+            <p class="intro-p">Below coverage 1.3, the only way to mint SOLIDUS. You bring at least $2 of ETH per SOLIDUS: $1.001 pays each SOLIDUS and the rest buys Florins at book value.</p>
+            <p class="state">Coverage is 4.28 now. A combined order would be returned, and its fee kept.</p>
+
+            <span class="step">Before the order: your automatic-redemption level</span>
+            <div class="warn"><p>This wallet never set a level, so its default, 1.4873, applies. A combined order delivers SOLIDUS while coverage is below 1.3, under that level, and any bot could have it redeemed at $0.999 at once. Choose “Never” or a level below the current coverage before placing the order.</p></div>
+            <fieldset>
+              <legend>Level for this wallet</legend>
+              <label class="choice"><input type="radio" name="comb-level" id="comb-level-never"> <span>Never redeem automatically</span></label>
+              <label class="choice"><input type="radio" name="comb-level" id="comb-level-set"> <span>A level below the current coverage</span></label>
+              <div class="field" style="margin:4px 0 0 28px;max-width:200px">
+                <label for="comb-level-value" class="sr-only">Level</label>
+                <div class="ig"><input id="comb-level-value" type="text" inputmode="decimal" value="1.20" readonly><span class="unit">coverage</span></div>
+              </div>
+            </fieldset>
+            <div class="do" style="margin:0 0 18px"><button type="button" class="btn secondary" data-sample>Save level</button><p class="sample-msg" role="status"></p></div>
+
+            <span class="step">The order</span>
+            <div class="field">
+              <label for="comb-sol">SOLIDUS to mint</label>
+              <div class="ig"><input id="comb-sol" type="text" inputmode="decimal" value="1,000.00" readonly><span class="unit">SOLIDUS</span></div>
+            </div>
+            <div class="field">
+              <label for="comb-ratio">ETH you bring per SOLIDUS, in dollars (at least 2.00)</label>
+              <div class="ig"><input id="comb-ratio" type="text" inputmode="decimal" value="2.00" readonly><span class="unit">$ / SOLIDUS</span></div>
+            </div>
+            <div class="preview">
+              <dl class="rows">
+                <div><dt>You pay</dt><dd>0.8000 ETH<small>$2,000.00 at $2,500.00</small></dd></div>
+                <div class="sub"><dt>Pays 1,000 SOLIDUS at $1.001</dt><dd>$1,001.00</dd></div>
+                <div class="sub"><dt>Buys Florins at book value</dt><dd>$999.00</dd></div>
+                <div><dt>Leverage of those Florins</dt><dd>5.0× at coverage 1.25<small>4.3× at 1.3 · 6.0× at 1.2</small></dd></div>
+                <div><dt>Wait</dt><dd>Next round, no hour<small>counts toward the 1,000,000 cap</small></dd></div>
+              </dl>
+            </div>
+            <p class="note">Those Florins carry the leverage of every Florin, coverage ÷ (coverage − 1). They absorb losses before SOLIDUS does, and at a stop they keep only what remains after the SOLIDUS holders’ $0.95. With coverage below 1.3 the SOLIDUS supply can grow through the combined mint, and whoever holds SOLIDUS when the stop fires collects $0.95.</p>
+            <div class="do"><button type="button" class="btn" data-sample>Place combined order</button><p class="sample-msg" role="status"></p></div>
+          </article>
+
+          <article class="card" aria-labelledby="h-a-auto" data-sample-box>
+            <h3 id="h-a-auto">Automatic redemption level</h3>
+            <p class="intro-p">When the projected coverage falls to your level, any bot can redeem your SOLIDUS for you at $0.999. Its fee is capped at 1% of the amount and by the cost of gas.</p>
+            <p class="state" style="color:var(--ink)">This wallet never set a level. Its default, 1.4873, comes from its address; defaults run from 1.45 to 1.55.</p>
+            <fieldset>
+              <legend>Level for this wallet</legend>
+              <label class="choice"><input type="radio" name="auto-level" id="auto-level-default" checked> <span>Keep the default, 1.4873</span></label>
+              <label class="choice"><input type="radio" name="auto-level" id="auto-level-set"> <span>Set a level</span></label>
+              <div class="field" style="margin:4px 0 0 28px;max-width:200px">
+                <label for="auto-level-value" class="sr-only">Level</label>
+                <div class="ig"><input id="auto-level-value" type="text" inputmode="decimal" value="1.40" readonly><span class="unit">coverage</span></div>
+              </div>
+              <label class="choice"><input type="radio" name="auto-level" id="auto-level-never"> <span>Never redeem automatically</span></label>
+            </fieldset>
+            <div class="warn"><p>During the cap, if the projected coverage is below your level, your SOLIDUS is redeemed at $0.999 even if it is worth more in the market. If you buy above $0.999, set your level before you buy.</p></div>
+            <p class="note">Setting any level, even the default value, ends the default for this wallet, in every series. If liquid ETH runs out while coverage falls through 1.55 to 1.45, wallets with the highest default levels are redeemed earlier and take the liquid ETH; wallets with the lowest can be paid in wstETH.</p>
+            <div class="do"><button type="button" class="btn" data-sample>Save level</button><p class="sample-msg" role="status"></p></div>
+          </article>
+
+        </div>
+      </section>
+    </div>
+
+  </div>
+</main>
+
+<footer class="foot gutter">
+  <div class="wrap">
+    <img src="../assets/emblem.webp" alt="" width="240" height="190">
+    <span class="nm">Lords of Finance</span>
+    <a href="../">lords.finance</a>
+    <span>Sample with example data. No token exists yet.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+
+  function show(tab, focus, keepHash){
+    tabs.forEach(function(t){
+      var on = t === tab;
+      t.setAttribute("aria-selected", on ? "true" : "false");
+      t.tabIndex = on ? 0 : -1;
+      var panel = document.getElementById(t.getAttribute("aria-controls"));
+      if (panel) panel.hidden = !on;
+    });
+    if (focus) tab.focus();
+    if (!keepHash) {
+      try { history.replaceState(null, "", "#" + tab.getAttribute("data-hash")); } catch (e) {}
+    }
+  }
+
+  tabs.forEach(function(t, i){
+    t.addEventListener("click", function(){ show(t, false, false); });
+    t.addEventListener("keydown", function(e){
+      var next = null;
+      if (e.key === "ArrowRight") next = tabs[(i + 1) % tabs.length];
+      else if (e.key === "ArrowLeft") next = tabs[(i - 1 + tabs.length) % tabs.length];
+      else if (e.key === "Home") next = tabs[0];
+      else if (e.key === "End") next = tabs[tabs.length - 1];
+      if (next) { e.preventDefault(); show(next, true, false); }
+    });
+  });
+
+  function fromHash(){
+    var hash = (window.location.hash || "").replace("#", "");
+    tabs.forEach(function(t){ if (t.getAttribute("data-hash") === hash) show(t, false, true); });
+  }
+  fromHash();
+  window.addEventListener("hashchange", fromHash);
+
+  document.addEventListener("click", function(e){
+    var b = e.target && e.target.closest ? e.target.closest("button[data-sample]") : null;
+    if (!b) return;
+    e.preventDefault();
+    var box = b.closest("[data-sample-box]");
+    var msg = box ? b.parentNode.querySelector(".sample-msg") : null;
+    if (!msg) return;
+    msg.textContent = "";
+    window.setTimeout(function(){ msg.textContent = "This is a sample"; }, 40);
+  });
+})();
+</script>
+</body>
+</html>
