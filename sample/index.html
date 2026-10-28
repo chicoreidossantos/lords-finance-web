@@ -487,8 +487,11 @@ legend{font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--i
         <ul class="points">
           <li>Until the cap ends, SOLIDUS is not yet a stablecoin: when the cap is full no new SOLIDUS can be minted, and it could trade above one dollar.</li>
           <li><strong>During the cap the code is new, and you can lose your money.</strong></li>
+          <li>During the cap, SOLIDUS could trade above one dollar; it shouldn’t trade below $0.99 unless coverage falls below 1.</li>
+          <li>During the cap, the team can mint SOLIDUS and enter as Lords, from declared addresses.</li>
         </ul>
         <ul class="points quiet" style="margin-top:6px">
+          <li>Batches 1 to 30 were for Florins only; minting SOLIDUS opened in batch 31.</li>
           <li>While the SOLIDUS cap is full, redemptions stay open.</li>
           <li>The Lords’ cap limits only new entries: if ETH rises, their capital can grow past $4,000,000.</li>
         </ul>
@@ -563,7 +566,7 @@ legend{font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--i
       <section aria-labelledby="h-batch">
         <div class="section-head">
           <h2 id="h-batch">Batches</h2>
-          <p>One batch a day. Orders wait for the cutoff at 00:00 UTC and settle at the first Chainlink ETH/USD round after it. If no round comes, they move to the next batch. Any order can be cancelled until it settles.</p>
+          <p>One batch a day. Orders wait for the cutoff at 00:00 UTC and settle at the first Chainlink ETH/USD round after it. If no round comes, they move to the next batch. Any order can be cancelled until the cutoff, or until a valid Chainlink round after the cutoff exists. From then on the batch price is fixed, even if nobody has processed the batch yet.</p>
         </div>
         <div class="two">
           <div>
@@ -611,11 +614,12 @@ legend{font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--i
             <dl class="rows">
               <div><dt><span class="sw" style="background:var(--c1)"></span>ETH</dt><dd>285.0 ETH<small>$712,500 · 26.0%</small></dd></div>
               <div><dt><span class="sw" style="background:var(--c2)"></span>wstETH (Lido), valued in ETH</dt><dd>811.0 ETH<small>$2,027,500 · 74.0%</small></dd></div>
+              <div><dt>In Lido’s withdrawal queue</dt><dd>0.0 ETH<small>none today</small></dd></div>
               <div class="total"><dt>Total</dt><dd>1,096.0 ETH<small>$2,740,000</small></dd></div>
             </dl>
           </div>
           <ul class="aside">
-            <li><b>Paid in kind.</b> The protocol always pays in ETH and wstETH, in the proportions of the reserve: today 26% and 74%.</li>
+            <li><b>Paid in kind.</b> The protocol always pays in ETH and wstETH, in the proportions of the reserve: today 26% and 74%. When part of the reserve is in Lido’s withdrawal queue, payments include receipts for that part, which take days, or weeks, to collect. wstETH can sell for less than ETH.</li>
             <li><b>Dollars outside the core.</b> Selling for dollars is done outside the core: by the app, by the exit box or in a CoW auction.</li>
             <li><b>Lido.</b> A failure of wstETH hits the reserve.</li>
           </ul>
@@ -655,12 +659,14 @@ legend{font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--i
             <div><dt>State</dt><dd>Armed<small>opening coverage 4.28, above 1.5</small></dd></div>
             <div><dt>SOLIDUS in the exit box</dt><dd>210,000<small>32.8% of all SOLIDUS</small></dd></div>
             <div><dt>Leaves at ETH price</dt><dd>about $875.91<small>if nothing else changes</small></dd></div>
-            <div><dt>Pays</dt><dd>$1.00 in ETH, less the cost of the sale<small>$0.99 if coverage is below 1.3</small></dd></div>
+            <div><dt>Pays</dt><dd>$1.00 in ETH, less the cost of the sale<small>$0.99 if coverage is below 1.3; $0.99 × coverage below 1</small></dd></div>
             <div><dt>Fee</dt><dd>Gas shared by amount, plus a small margin<small>capped at 1%</small></dd></div>
+            <div><dt>What it costs</dt><dd>About 0.8% a year<small>against less than 0.1% without it, in the middle scenario of the simulations</small></dd></div>
           </dl>
           <ul class="aside">
             <li><b>All together.</b> In the first batch that opens below 1.5, all of it leaves at once and is sold for USDT in a single sale. Each address gets its share and withdraws when it wants.</li>
-            <li><b>Back by itself.</b> In the first batch with coverage at 2 or more, the USDT nobody withdrew buys ETH and mints SOLIDUS again at $1.000.</li>
+            <li><b>Back by itself, one batch later.</b> In the first batch with coverage at 2 or more, the USDT nobody withdrew buys ETH, and the mint back at $1.000 joins the following batch, filled in proportion up to coverage 2. ETH is bought only for the part that fits; the rest stays in USDT and tries again in the next batch.</li>
+            <li><b>The price of peace of mind.</b> Most of the cost is the rebalancing lost while out and the slippage of leaving and coming back. The figures assume 0.2% of slippage on the sale and 0.2% on the purchase back.</li>
             <li><b>USDT can be frozen</b> by its issuer, and while out you do not receive the rebalancing.</li>
           </ul>
         </div>
@@ -684,7 +690,7 @@ legend{font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--i
       <section aria-labelledby="h-dukes">
         <div class="section-head">
           <h2 id="h-dukes">Dukes (DUKES) <small>The reward token</small></h2>
-          <p>DUKES holders share 10% of the protocol’s income, for as long as the protocol exists. DUKES carry no vote and no other right.</p>
+          <p>DUKES holders share 10% of the protocol’s income in each batch that opens with coverage above 1. At coverage 1 or below, that 10% is not paid: it stays in the reserve. DUKES carry no vote and no other right.</p>
         </div>
         <div class="two">
           <ul class="facts">
@@ -802,18 +808,18 @@ legend{font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--i
       <section aria-labelledby="h-orders">
         <div class="section-head">
           <h2 id="h-orders">Orders</h2>
-          <p>Batch 50 closes at 00:00 UTC, in 13 h 20 min, and settles at the first Chainlink ETH/USD round after that. Until then, these orders can be cancelled.</p>
+          <p>Batch 50 closes at 00:00 UTC, in 13 h 20 min, and settles at the first valid Chainlink ETH/USD round after that. These orders can be cancelled until the cutoff, or until a valid Chainlink round after the cutoff exists.</p>
         </div>
         <ul class="orders" data-sample-box>
           <li>
             <div class="what">Mint SOLIDUS<span>Placed 08:12 UTC · exit box checked · processing fee offered 0.0001 ETH</span></div>
             <div class="amt">0.4000 ETH for about 999.0 SOLIDUS<span>at $2,500.00; final at the batch price, if coverage stays at 2 or more</span></div>
-            <div class="wait"><span class="chip wait">Waiting for batch 50</span><b>Cutoff in 13 h 20 min</b><span>Can be cancelled until it settles</span></div>
+            <div class="wait"><span class="chip wait">Waiting for batch 50</span><b>Cutoff in 13 h 20 min</b><span>Can be cancelled until a valid Chainlink round after the cutoff exists</span></div>
           </li>
           <li>
             <div class="what">Enter as a Lord<span>Placed 09:55 UTC · plain entry · processing fee offered 0.0001 ETH</span></div>
             <div class="amt">0.2000 ETH for about 460.0 FLOR<span>at book value; final at the batch price</span></div>
-            <div class="wait"><span class="chip wait">Waiting for batch 50</span><b>Cutoff in 13 h 20 min</b><span>Can be cancelled until it settles</span></div>
+            <div class="wait"><span class="chip wait">Waiting for batch 50</span><b>Cutoff in 13 h 20 min</b><span>Can be cancelled until a valid Chainlink round after the cutoff exists</span></div>
           </li>
           <li>
             <div class="what">Redeem SOLIDUS<span>Placed yesterday 17:30 UTC</span></div>
@@ -828,10 +834,11 @@ legend{font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--i
       <section class="before" aria-labelledby="h-before">
         <h2 id="h-before">Before you place an order</h2>
         <ul class="points">
-          <li><strong>The price comes later.</strong> An order waits for the daily cutoff at 00:00 UTC and settles at the first Chainlink ETH/USD round after it, not at the moment you place it. That can be almost a day. During the wait you stay exposed to ETH. If no round comes, the order moves to the next batch.</li>
+          <li><strong>The price comes later.</strong> An order waits for the daily cutoff at 00:00 UTC and settles at the first Chainlink ETH/USD round after it, not at the moment you place it. That can be almost a day. During the wait you stay exposed to ETH. You can cancel it until the cutoff, or until a valid Chainlink round after the cutoff exists. If no round comes, the order moves to the next batch.</li>
+          <li><strong>Paid in ETH and wstETH.</strong> Payments can include receipts from Lido’s withdrawal queue, which take days, or weeks, to collect. wstETH can sell for less than ETH.</li>
           <li><strong>One price source.</strong> Chainlink ETH/USD is the protocol’s only price, with nothing to check it against. A wrong round settles the whole batch at that price and can set off a conversion. The feed’s owners can change it without notice.</li>
           <li><strong>Conversion.</strong> In a batch that opens with coverage at 1.2 or less, one third of every SOLIDUS balance is converted into ETH at $0.99, less below coverage 1.</li>
-          <li><strong>Exit box.</strong> If it leaves, you hold USDT, which its issuer can freeze, until coverage is back at 2.</li>
+          <li><strong>Exit box.</strong> If it leaves, you hold USDT, which its issuer can freeze, until the batch after coverage is back at 2. The box costs about 0.8% a year, against less than 0.1% without it, in the middle scenario of the simulations: it is the price of peace of mind.</li>
           <li>Until the cap ends, in 41 batches in this example, SOLIDUS is not yet a stablecoin: it could trade above one dollar.</li>
           <li><strong>During the cap the code is new, and you can lose your money.</strong></li>
         </ul>
@@ -852,7 +859,7 @@ legend{font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--i
               <label for="mint-eth">You pay</label>
               <div class="ig"><input id="mint-eth" type="text" inputmode="decimal" value="0.4000" readonly><span class="unit">ETH</span></div>
             </div>
-            <label class="choice"><input type="checkbox" checked> <span>Put the new SOLIDUS in the exit box (level 1.5). It pays $1.00 in ETH, less the cost of the sale, and comes back by itself. Fee capped at 1%.</span></label>
+            <label class="choice"><input type="checkbox" checked> <span>Put the new SOLIDUS in the exit box (level 1.5). It pays $1.00 in ETH, less the cost of the sale, and comes back by itself. Fee capped at 1%. It costs about 0.8% a year, against less than 0.1% without it, in the middle scenario of the simulations.</span></label>
             <div class="preview">
               <dl class="rows">
                 <div><dt>You receive</dt><dd>about 999.0 SOLIDUS<small>at $2,500.00; final at the batch price</small></dd></div>
@@ -888,7 +895,7 @@ legend{font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--i
                 <div><dt>Processing fee</dt><dd>0.0001 ETH</dd></div>
               </dl>
             </div>
-            <p class="note">Paid in kind, in the proportions of the reserve.</p>
+            <p class="note">Paid in kind, in the proportions of the reserve. The payment can include receipts from Lido’s withdrawal queue, which take days, or weeks, to collect; wstETH can sell for less than ETH.</p>
             <div class="do"><button type="button" class="btn" data-sample>Redeem SOLIDUS</button><p class="sample-msg" role="status"></p></div>
           </article>
 
@@ -899,9 +906,10 @@ legend{font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--i
             <div class="preview">
               <dl class="rows">
                 <div><dt>Leaves</dt><dd>In the first batch that opens below 1.5</dd></div>
-                <div><dt>Pays</dt><dd>$1.00 in ETH, less the cost of the sale<small>sold for USDT in one sale; $0.99 below coverage 1.3</small></dd></div>
-                <div><dt>Comes back</dt><dd>In the first batch with coverage 2 or more<small>mints SOLIDUS again at $1.000 with the USDT not withdrawn</small></dd></div>
+                <div><dt>Pays</dt><dd>$1.00 in ETH, less the cost of the sale<small>sold for USDT in one sale; $0.99 below coverage 1.3; $0.99 × coverage below 1</small></dd></div>
+                <div><dt>Comes back</dt><dd>In the batch after the first one with coverage 2 or more<small>mints SOLIDUS again at $1.000 with the USDT not withdrawn, pro rata up to coverage 2; the rest stays in USDT and tries again</small></dd></div>
                 <div><dt>Fee</dt><dd>Gas shared by amount, plus a small margin<small>capped at 1%</small></dd></div>
+                <div><dt>What it costs</dt><dd>About 0.8% a year<small>against less than 0.1% without it, middle scenario of the simulations</small></dd></div>
                 <div><dt>USDT to withdraw</dt><dd>0.00</dd></div>
               </dl>
             </div>
@@ -954,16 +962,18 @@ legend{font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--i
 
           <article class="card" aria-labelledby="h-a-net" data-sample-box>
             <h3 id="h-a-net">Net withdrawal</h3>
-            <p class="intro-p">Withdraw as a Lord, in the next batch, without bringing SOLIDUS. Only while coverage stays at 2 or more.</p>
+            <p class="intro-p">Withdraw as a Lord, in ETH and wstETH, in the next batch, without bringing SOLIDUS. Only while coverage stays at 2 or more.</p>
             <div class="field">
               <label for="net-flor">Florins to withdraw</label>
               <div class="ig"><input id="net-flor" type="text" inputmode="decimal" value="1,500.00" readonly><span class="unit">FLOR</span></div>
             </div>
             <div class="preview">
               <dl class="rows">
-                <div class="total"><dt>You receive</dt><dd>$1,630.50<small>book value; final at the batch price</small></dd></div>
-                <div class="sub"><dt>ETH, 26%</dt><dd>0.16957 ETH</dd></div>
-                <div class="sub"><dt>wstETH, 74%</dt><dd>worth 0.48263 ETH</dd></div>
+                <div class="total"><dt>You receive</dt><dd>about $1,630.00<small>final at the batch price</small></dd></div>
+                <div class="sub"><dt>Book value</dt><dd>$1,630.50</dd></div>
+                <div class="sub"><dt>Less the band, 0.001 per SOLIDUS behind your Florins</dt><dd>−$0.50<small>stays with the Lords who remain</small></dd></div>
+                <div class="sub"><dt>ETH, 26%</dt><dd>0.16952 ETH</dd></div>
+                <div class="sub"><dt>wstETH, 74%</dt><dd>worth 0.48248 ETH</dd></div>
                 <div><dt>Coverage after</dt><dd>4.28<small>above 2</small></dd></div>
                 <div><dt>Processing fee</dt><dd>0.0001 ETH</dd></div>
               </dl>

@@ -373,8 +373,8 @@ section{scroll-margin-top:16px}
         <article class="role acc-sol">
           <div class="seal" aria-hidden="true"><svg><use href="#i-purse"/></svg></div>
           <h3>Solidus (SOLIDUS) <small>The dollar</small></h3>
-          <p>Anyone can mint SOLIDUS with ETH at $1.001 and redeem it for ETH at $0.999, without asking anyone’s permission. Orders settle once a day, in a batch. The reserve holds only ETH and wstETH, ETH staked through Lido.</p>
-          <p>Minting is open while coverage stays at 2 or more. Redemptions are always open: at $0.999, or at $0.99 when coverage is below 1.3.</p>
+          <p>Anyone can mint SOLIDUS with ETH at $1.001 and redeem it for ETH and wstETH at $0.999, without asking anyone’s permission. Orders settle once a day, in a batch. The reserve holds only ETH and wstETH, ETH staked through Lido.</p>
+          <p>Minting opens in batch 31: the first 30 batches take only Lords’ entries. After that, minting is open while coverage stays at 2 or more. Redemptions are always open: at $0.999; at $0.99 when coverage is below 1.3; and at $0.99 × coverage when coverage is below 1, so $0.99 is not a floor.</p>
           <p class="earn"><strong>What you receive:</strong> your balance is rebalanced each day to pass on SOLIDUS’s part of the reserve’s income. This is a rebalancing, not interest: it depends on the income of the day, it is not promised, and the balance can also go down in a conversion.</p>
         </article>
         <article class="role acc-wsol">
@@ -394,7 +394,7 @@ section{scroll-margin-top:16px}
           <div class="seal" aria-hidden="true"><svg><use href="#i-coronet"/></svg></div>
           <h3>Dukes (DUKES) <small>The reward token</small></h3>
           <p>A fixed supply of 100,000,000, created at deployment. Half goes to the Lords over time; half goes to the team, released over four years. Of the team’s half, the team commits 3,000,000 to bug rewards and 1,000,000 to the testnet; that split is a public commitment, not code.</p>
-          <p class="earn"><strong>What you receive:</strong> DUKES holders share 10% of the protocol’s income, as long as the protocol exists. No vote and no other right. Their value depends on the size of the system.</p>
+          <p class="earn"><strong>What you receive:</strong> DUKES holders share 10% of the protocol’s income in each batch that opens with coverage above 1. At coverage 1 or below, that 10% is not paid: it stays in the reserve. No vote and no other right. Their value depends on the size of the system.</p>
         </article>
       </div>
     </section>
@@ -409,8 +409,8 @@ section{scroll-margin-top:16px}
       <div class="why-pair">
         <div class="acc-sol">
           <h3>Cutoff at 00:00 UTC</h3>
-          <p>Orders placed during the day wait for the cutoff at 00:00 UTC. The app shows a countdown, and an order can be cancelled until it settles.</p>
-          <p>The batch settles at the first Chainlink ETH/USD price round published after the cutoff. If no round comes, the orders move to the next batch, and they can still be cancelled.</p>
+          <p>Orders placed during the day wait for the cutoff at 00:00 UTC. The app shows a countdown. An order can be cancelled until the cutoff, or until a valid Chainlink round after the cutoff exists.</p>
+          <p>The batch settles at the first valid Chainlink ETH/USD price round observed after the cutoff. Once that round exists, the batch price is fixed and orders can no longer be cancelled, even if nobody has processed the batch yet. If no round comes, the orders move to the next batch, and they can still be cancelled.</p>
         </div>
         <div class="acc-dukes">
           <h3>One coverage for the whole batch</h3>
@@ -514,18 +514,19 @@ section{scroll-margin-top:16px}
         <div class="acc-sol">
           <h3>How it works</h3>
           <p>Checking the exit box deposits your SOLIDUS in a single exit box contract, outside the core. It keeps receiving the daily rebalancing. There is one level for everyone: 1.5.</p>
-          <p>In the first batch that opens with coverage below 1.5, all the SOLIDUS in the box leaves together. The core pays $1.00 in ETH per SOLIDUS at the batch price ($0.99 if coverage is below 1.3). The contract makes a single sale to USDT and credits each address its share. You withdraw your USDT whenever you want.</p>
+          <p>In the first batch that opens with coverage below 1.5, all the SOLIDUS in the box leaves together. The core pays $1.00 per SOLIDUS in ETH and wstETH at the batch price ($0.99 if coverage is below 1.3; $0.99 × coverage if it is below 1). The contract makes a single sale to USDT and credits each address its share. You withdraw your USDT whenever you want.</p>
           <p class="quote-line">$1.00 in ETH, less the cost of the sale.</p>
         </div>
         <div class="acc-flor">
           <h3>The automatic return</h3>
-          <p>In the first batch with coverage at 2 or more, the contract buys ETH with the USDT nobody withdrew and mints SOLIDUS again at $1.000. The box is then armed again.</p>
+          <p>In the first batch with coverage at 2 or more, the contract buys ETH with the USDT nobody withdrew, and the mint back at $1.000 joins the following batch, one batch later, filled in proportion with the other mints up to coverage 2. The contract buys ETH only for the part that fits; the rest stays in USDT and tries again in the next batch. What comes back is armed again.</p>
           <p>The fee is fixed: the gas, shared by amount, plus a small margin, capped at 1%. The gas does not depend on how many addresses there are.</p>
           <p>The app checks the box by default when you mint, and offers it, checked, if you connect with SOLIDUS outside it; that needs your own transaction. The contract itself does not check it, and other wallets and exchanges do not either. It cannot be checked in a batch that opens below 1.5.</p>
         </div>
       </div>
       <ul class="points" style="margin-top:28px">
-        <li><strong>While you are out, you hold USDT</strong>, a centralized stablecoin that its issuer can freeze, right during the crisis, until coverage is back at 2. You do not receive the rebalancing while you are out.</li>
+        <li><strong>What it costs.</strong> The exit box is the price of peace of mind, and it is not free. In the team’s simulations, in the middle scenario, holding SOLIDUS with the box costs about 0.8% a year, against less than 0.1% a year without it. Most of it is the rebalancing you lose while out and the slippage of leaving and coming back, about once a year. The figures assume a slippage of 0.2% on the sale and 0.2% on the purchase back; they change with the real one.</li>
+        <li><strong>While you are out, you hold USDT</strong>, a centralized stablecoin that its issuer can freeze, right during the crisis, until the batch after coverage is back at 2. You do not receive the rebalancing while you are out.</li>
         <li>The sale of all the boxes at once is large. Its slippage is paid by the holders.</li>
         <li>A jump of ETH within a single day can take coverage from above 1.5 to below 1.3 between two batches. The box then pays $0.99.</li>
       </ul>
@@ -541,7 +542,7 @@ section{scroll-margin-top:16px}
       <div class="why-pair">
         <div class="acc-flor">
           <h3>Their part of the income</h3>
-          <p>The reserve’s income, the staking rewards and the mint and redeem fees, enters the reserve. 10% goes to DUKES holders. With coverage at 2 or more, the rest is shared in proportion to capital: SOLIDUS holders by the rebalancing, Lords through the book value of the Florin.</p>
+          <p>The reserve’s income, the staking rewards and the mint and redeem fees, enters the reserve. 10% goes to DUKES holders, except at coverage 1 or below, when it stays in the reserve. With coverage at 2 or more, the rest is shared in proportion to capital: SOLIDUS holders by the rebalancing, Lords through the book value of the Florin.</p>
           <p>Below coverage 2, the Lords’ part rises in a straight line from 50% at 2 to 80% at 1.3, and stays at 80% below. The cent that stays in the reserve in each redemption or conversion at $0.99 also goes to the Lords.</p>
           <p>The DUKES for participants go only to Florins, by capital.</p>
         </div>
@@ -554,7 +555,7 @@ section{scroll-margin-top:16px}
       </div>
       <h3 class="sub-head">Going out</h3>
       <ul class="points">
-        <li><strong>Coverage 2 or more:</strong> net withdrawal in ETH, as far as coverage stays at 2 or more after the batch.</li>
+        <li><strong>Coverage 2 or more:</strong> net withdrawal in ETH and wstETH, at book value less the 0.001 band on the SOLIDUS behind your Florins, as far as coverage stays at 2 or more after the batch.</li>
         <li><strong>Below 2:</strong> only exits that do not lower coverage. A proportional exit, handing in the same fraction of all SOLIDUS as of all Florins, your own SOLIDUS or SOLIDUS bought with one button; it is immediate and needs no price. An exit matched against the redemptions of the same batch. Or a sale of Florins in a FLOR/ETH pool, outside the core, if one exists.</li>
       </ul>
     </section>
@@ -606,7 +607,7 @@ section{scroll-margin-top:16px}
         <li>
           <span class="when">2027</span>
           <h3>Mainnet, with a cap</h3>
-          <p>Deployment on Ethereum, with limits on the amounts for the first 90 daily batches. The DUKES for participants start with the first batch.</p>
+          <p>Deployment on Ethereum, with limits on the amounts for the first 90 daily batches. The first 30 batches are for Florins only: Lords can enter and exit, and minting SOLIDUS, combined orders and net withdrawals open in batch 31. The DUKES for participants start with the first batch.</p>
         </li>
         <li>
           <span class="when">2027</span>
@@ -628,6 +629,9 @@ section{scroll-margin-top:16px}
       <ul class="points">
         <li>Until the cap ends, SOLIDUS is not yet a stablecoin: when the cap is full no new SOLIDUS can be minted, and it could trade above one dollar.</li>
         <li><strong>During the cap the code is new, and you can lose your money.</strong></li>
+        <li>During the cap, SOLIDUS could trade above one dollar; it shouldn’t trade below $0.99 unless coverage falls below 1.</li>
+        <li>During the cap, the team can mint SOLIDUS and enter as Lords, from declared addresses.</li>
+        <li>The first 30 batches are for Florins only. Minting SOLIDUS opens in batch 31.</li>
       </ul>
     </section>
 
@@ -636,10 +640,11 @@ section{scroll-margin-top:16px}
     <section id="risks" class="notice" aria-labelledby="h-risks">
       <h2 id="h-risks">Before you use it</h2>
       <ul class="points" style="margin-top:14px">
-        <li><strong>The price comes later.</strong> An order does not settle when you place it. It waits for the cutoff at 00:00 UTC and for the first Chainlink round after it, and then settles at that price. During the wait you stay exposed to ETH. If no round comes, the order moves to the next batch.</li>
+        <li><strong>The price comes later.</strong> An order does not settle when you place it. It waits for the cutoff at 00:00 UTC and for the first valid Chainlink round after it, and then settles at that price. You can cancel it until the cutoff, or until a valid Chainlink round after the cutoff exists. During the wait you stay exposed to ETH. If no round comes, the order moves to the next batch.</li>
         <li><strong>One price source.</strong> Chainlink ETH/USD is the protocol’s only price, with nothing to check it against. A wrong round settles the whole batch at that price and can set off a conversion. The feed’s owners can change it without notice.</li>
+        <li><strong>Paid in ETH and wstETH.</strong> The protocol pays in ETH and wstETH, in the proportions of the reserve, and the payment can include receipts from Lido’s withdrawal queue, which take days, or weeks, to collect. wstETH can sell for less than ETH.</li>
         <li><strong>Lido.</strong> Part of the reserve is wstETH. A failure of wstETH hits the reserve.</li>
-        <li><strong>No yield is promised.</strong> The rebalancing depends on the reserve’s income and can be zero. A conversion pays $0.99 in ETH, or less below coverage 1.</li>
+        <li><strong>No yield is promised.</strong> The rebalancing depends on the reserve’s income and can be zero. A conversion pays $0.99 in ETH and wstETH, or $0.99 × coverage below coverage 1.</li>
         <li><strong>Immutable code.</strong> A bug cannot be fixed.</li>
       </ul>
     </section>
