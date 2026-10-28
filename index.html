@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Lords of Finance</title>
-<meta name="description" content="Lords of Finance: a dollar backed only by ETH. No custodian, no admin keys, no governance. In development; no token exists yet.">
+<meta name="description" content="Lords of Finance: SOLIDUS, a dollar backed only by ETH, settled in one daily batch. No custodian, no admin keys, no governance. In development; no token exists yet.">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1B1815" media="(prefers-color-scheme: dark)">
@@ -159,15 +159,6 @@ section{scroll-margin-top:16px}
 .acc-flor{--acc:var(--brick)}
 .acc-dukes{--acc:var(--slate)}
 
-/* Series */
-.series{margin-top:44px;padding-top:22px;border-top:1px solid var(--rule)}
-.series h3{margin-bottom:8px}
-.series p{max-width:66ch}
-.coins{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px 0;font-family:var(--font-serif);font-size:18px;line-height:1.4}
-.coins li{white-space:nowrap}
-.coins li:not(:last-child)::after{content:"\00B7";color:var(--gold-2);font-weight:700;padding:0 .5em}
-.coins li:nth-child(1){color:var(--madder);font-weight:700}
-
 /* Team */
 .team{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:0 36px;list-style:none;margin:0;padding:0}
 .team li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;align-items:center;padding:14px 0;border-bottom:1px dotted var(--rule-2)}
@@ -279,6 +270,15 @@ section{scroll-margin-top:16px}
 .acc-stop{--acc:var(--brick)}
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+
+/* Daily batch */
+.batch-steps{list-style:none;margin:18px 0 0;padding:0;counter-reset:st;max-width:70ch}
+.batch-steps li{counter-increment:st;display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;padding:10px 0;border-bottom:1px dotted var(--rule-2);font-size:17px;line-height:1.5}
+.batch-steps li::before{content:counter(st);display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;font-family:var(--font-sans);font-size:13px;font-weight:600;color:var(--madder);background:var(--gold-wash);box-shadow:inset 0 0 0 1px var(--gold-2)}
+.quote-line{font-family:var(--font-sans);font-size:15px;font-weight:600;color:var(--ink);background:var(--gold-wash);border-left:3px solid var(--gold-2);padding:10px 14px;margin:14px 0 0;max-width:62ch}
+.acc-wsol{--acc:var(--sage)}
+.role .earn{margin-top:12px}
+.sub-head{margin:40px 0 8px}
 </style>
 </head>
 <body>
@@ -318,10 +318,11 @@ section{scroll-margin-top:16px}
   </defs>
 </svg>
 
+
 <a class="skip" href="#main">Skip to content</a>
 
 <div class="strip" role="note" aria-label="Warning">
-  <p>No SOLIDUS, Florin or DUKES token exists yet. Anything that claims to be one is a scam.</p>
+  <p>No SOLIDUS, wSOLIDUS, Florin or DUKES token exists yet. Anything that claims to be one is a scam.</p>
 </div>
 
 <header class="masthead gutter">
@@ -333,10 +334,12 @@ section{scroll-margin-top:16px}
     <nav class="nav" aria-label="Sections">
       <ul>
         <li><a href="#how">How it works</a></li>
+        <li><a href="#batch">Daily batch</a></li>
         <li><a href="#why">Why it holds</a></li>
+        <li><a href="#exit">Exit box</a></li>
+        <li><a href="#lords">Lords</a></li>
         <li><a href="#team">Team</a></li>
         <li><a href="#calendar">Calendar</a></li>
-        <li><a href="#cap">Launch cap</a></li>
         <li><a href="sample/">Sample app</a></li>
         <li><a href="#links">Links</a></li>
       </ul>
@@ -351,7 +354,7 @@ section{scroll-margin-top:16px}
       <div>
         <span class="status">In development</span>
         <h1 id="h-what">A dollar backed only by ETH.</h1>
-        <p class="lede">No custodian, no admin keys, no governance. The contracts are immutable: once deployed, nobody can change them.</p>
+        <p class="lede">No custodian, no admin keys, no governance. The contracts are immutable: once deployed, nobody can change them, and nobody can freeze a balance.</p>
         <p class="rubric">An AI-created decentralized stablecoin: designed, specified and coded by a team of AI agents; a human decides and deploys it.</p>
       </div>
       <figure class="plate">
@@ -364,37 +367,65 @@ section{scroll-margin-top:16px}
     <section id="how" aria-labelledby="h-how">
       <div class="section-head">
         <h2 id="h-how">How it works</h2>
-        <p>Three tokens and one reserve of ETH.</p>
+        <p>One reserve of ETH and staked ETH, a dollar token and its wrapped version, the Lords’ capital, and a reward token.</p>
       </div>
       <div class="roles">
         <article class="role acc-sol">
           <div class="seal" aria-hidden="true"><svg><use href="#i-purse"/></svg></div>
           <h3>Solidus (SOLIDUS) <small>The dollar</small></h3>
-          <p>Anyone can mint SOLIDUS with ETH and redeem it for ETH, at close to one dollar, without asking anyone’s permission. The reserve holds only ETH, part of it staked through Lido.</p>
-          <p>Orders settle in batches, at the next ETH price published by Chainlink, the protocol’s only price source.</p>
-          <p class="earn"><strong>What you earn:</strong> a small share of the protocol’s income, added to your balance, and DUKES while you hold it. It is meant to stay worth about one dollar.</p>
+          <p>Anyone can mint SOLIDUS with ETH at $1.001 and redeem it for ETH at $0.999, without asking anyone’s permission. Orders settle once a day, in a batch. The reserve holds only ETH and wstETH, ETH staked through Lido.</p>
+          <p>Minting is open while coverage stays at 2 or more. Redemptions are always open: at $0.999, or at $0.99 when coverage is below 1.3.</p>
+          <p class="earn"><strong>What you receive:</strong> your balance is rebalanced each day to pass on SOLIDUS’s part of the reserve’s income. This is a rebalancing, not interest: it depends on the income of the day, it is not promised, and the balance can also go down in a conversion.</p>
+        </article>
+        <article class="role acc-wsol">
+          <div class="seal" aria-hidden="true"><svg><use href="#i-purse"/></svg></div>
+          <h3>Wrapped Solidus (wSOLIDUS) <small>Fixed balance</small></h3>
+          <p>A wrapper with a fixed balance, like wstETH: instead of the balance changing, each wSOLIDUS is worth more SOLIDUS over time. It is made for pools and lending, where tokens whose balance changes work badly. It has no exit box.</p>
+          <p>After a conversion, wSOLIDUS sells the ETH it received for USDC, in a CoW auction, and buys SOLIDUS at $1.01 or less until it is again all SOLIDUS.</p>
+          <p class="quote-line">Unlike SOLIDUS, wSOLIDUS may at times hold centralized stablecoins.</p>
         </article>
         <article class="role acc-flor">
           <div class="seal" aria-hidden="true"><svg><use href="#i-helm"/></svg></div>
           <h3>Florins (FLOR) <small>The Lords’ capital</small></h3>
-          <p>Lords put ETH into the reserve and receive Florins. This capital stands beneath SOLIDUS and absorbs the losses.</p>
-          <p class="earn"><strong>What you earn:</strong> most of the protocol’s income (the staking yield on the reserve and the fees), and DUKES. It is a leveraged position in ETH: you gain more when ETH rises, and you can lose everything when it falls.</p>
+          <p>Lords put ETH into the reserve at book value and receive Florins. This capital, the reserve minus the SOLIDUS owed, stands beneath SOLIDUS and takes the falls of ETH first.</p>
+          <p class="earn"><strong>What you receive:</strong> the Lords’ part of the reserve’s income, and the DUKES for participants. It is a leveraged position in ETH, coverage ÷ (coverage − 1) times: you gain more when ETH rises, and you can lose everything when it falls. Below coverage 2, exits are limited.</p>
         </article>
         <article class="role acc-dukes">
           <div class="seal" aria-hidden="true"><svg><use href="#i-coronet"/></svg></div>
           <h3>Dukes (DUKES) <small>The reward token</small></h3>
-          <p>A reward token with a fixed supply, set at deployment. Half goes to participants, SOLIDUS holders and Lords, over time; half goes to the team.</p>
-          <p class="earn"><strong>What you earn:</strong> a fixed share of the protocol’s income, paid in Florins, as long as the protocol exists. No vote and no other right.</p>
+          <p>A fixed supply of 100,000,000, created at deployment. Half goes to the Lords over time; half goes to the team, released over four years. Of the team’s half, the team commits 3,000,000 to bug rewards and 1,000,000 to the testnet; that split is a public commitment, not code.</p>
+          <p class="earn"><strong>What you receive:</strong> DUKES holders share 10% of the protocol’s income, as long as the protocol exists. No vote and no other right. Their value depends on the size of the system.</p>
         </article>
       </div>
+    </section>
 
-      <div class="series" aria-labelledby="h-series">
-        <h3 id="h-series">Series</h3>
-        <p>Each series of SOLIDUS carries the name of a historical coin. If the reserve falls too close to what SOLIDUS holders are owed, the series stops: its holders are paid in ETH, less than a dollar each. A new series then opens under the next name.</p>
-        <ol class="coins" aria-label="The twenty series, in order">
-          <li>Solidus</li><li>Mancus</li><li>Hyperpyron</li><li>Morabetino</li><li>Augustale</li><li>Genovino</li><li>Écu</li><li>Dobla</li><li>Noble</li><li>Cruzado</li><li>Angel</li><li>Sovereign</li><li>Excelente</li><li>Mohur</li><li>Doubloon</li><li>Louis d’or</li><li>Moidore</li><li>Guinea</li><li>Napoléon</li><li>Eagle</li>
-        </ol>
+    <hr class="fillet">
+
+    <section id="batch" aria-labelledby="h-batch">
+      <div class="section-head">
+        <h2 id="h-batch">The daily batch</h2>
+        <p>The protocol has one clock: a batch a day. Every order of the day settles together, at one price.</p>
       </div>
+      <div class="why-pair">
+        <div class="acc-sol">
+          <h3>Cutoff at 00:00 UTC</h3>
+          <p>Orders placed during the day wait for the cutoff at 00:00 UTC. The app shows a countdown, and an order can be cancelled until it settles.</p>
+          <p>The batch settles at the first Chainlink ETH/USD price round published after the cutoff. If no round comes, the orders move to the next batch, and they can still be cancelled.</p>
+        </div>
+        <div class="acc-dukes">
+          <h3>One coverage for the whole batch</h3>
+          <p>Coverage is measured once, at the batch price, after the Lords’ entries and the combined orders. That opening coverage sets the redemption price, the exit box, the conversion, the coupon and the sharing of the income for the whole batch.</p>
+          <p>Each order pays its own processing fee, to whoever processes the batch. Anyone can do it; the protocol needs no operator and pays no reward.</p>
+        </div>
+      </div>
+      <h3 class="sub-head">The order inside a batch</h3>
+      <ol class="batch-steps">
+        <li><span>Lords’ entries and combined orders. Then the opening coverage is measured.</span></li>
+        <li><span>Exit boxes.</span></li>
+        <li><span>Redemptions, and Lords’ exits matched against them.</span></li>
+        <li><span>Conversion, at most one per batch, only with coverage at or below 1.2.</span></li>
+        <li><span>Mints, the exit box’s automatic return and Lords’ net withdrawals. These are the only steps that lower coverage: if they do not all fit while keeping coverage at 2 or more, they are filled in proportion, up to coverage 2.</span></li>
+      </ol>
     </section>
 
     <hr class="fillet">
@@ -412,62 +443,120 @@ section{scroll-margin-top:16px}
         </blockquote>
         <div class="principle">
           <span class="k">The Madisonian principle</span>
-          <p>Rules are written for self-interested agents, not for angels. The system is stable not in spite of people trying to profit from it, but because of it: every profitable move should push coverage away from the trigger. A rule that needs good behavior to work is a weakness.</p>
+          <p>Rules are written for self-interested agents, not for angels. Every rule assumes each participant is a bot that takes every profitable action. The system is stable not in spite of people trying to profit from it, but because of it. A rule that needs good behavior to work is a weakness.</p>
           <p class="thesis">The system pays opportunists to keep it stable.</p>
         </div>
       </div>
 
       <div class="why-block" aria-labelledby="h-cov">
         <h3 id="h-cov">Coverage</h3>
-        <p class="formula"><b>Coverage</b> = value of the reserve ÷ SOLIDUS in circulation. Minting lowers it, so the lower it is, the harder minting gets. No voluntary operation can take it below 1.3; only a fall in the value of the reserve can.</p>
+        <p class="formula"><b>Coverage</b> = value of the reserve ÷ SOLIDUS in circulation. Minting lowers it, so minting is open only while it stays at 2 or more. Below 2, the only way to mint brings more ETH than the SOLIDUS it creates.</p>
         <div class="cov-chart" aria-hidden="true">
-          <span class="cov-exit-lab">Automatic exits</span>
+          <span class="cov-exit-lab">Exit box 1.5</span>
           <div class="cov-bar">
-            <span class="seg s-stop" style="--a:1;--b:1.2">Stop</span>
+            <span class="seg s-stop" style="--a:1;--b:1.2">Convert</span>
             <span class="seg s-closed" style="--a:1.2;--b:1.3"></span>
-            <span class="seg s-delayed" style="--a:1.3;--b:2">1-hour wait</span>
-            <span class="seg s-fast" style="--a:2;--b:2.4">Fast</span>
-            <span class="cov-exit hatch" style="--a:1.45;--b:1.55"></span>
+            <span class="seg s-delayed" style="--a:1.3;--b:2">Combined mints only</span>
+            <span class="seg s-fast" style="--a:2;--b:2.4">Open</span>
+            <span class="cov-exit hatch" style="--a:1.48;--b:1.52"></span>
           </div>
           <div class="cov-ticks">
             <span class="lo" style="--v:1">1.0</span>
             <span style="--v:1.2">1.2</span>
             <span style="--v:1.3">1.3</span>
+            <span style="--v:1.5">1.5</span>
             <span style="--v:2">2</span>
           </div>
         </div>
         <ul class="cov-key" aria-label="Coverage zones">
-          <li><span class="sw s-stop" aria-hidden="true"></span><span class="rg">1.2 or less</span><span class="tx"><strong>The trigger.</strong> The series stops, in the orderly way described below.</span></li>
-          <li><span class="sw s-closed" aria-hidden="true"></span><span class="rg">1.2 to 1.3</span><span class="tx"><strong>Ordinary minting closed.</strong> Only the combined mint, which brings at least 2 dollars of ETH per SOLIDUS. Redeeming stays open.</span></li>
-          <li><span class="sw s-delayed" aria-hidden="true"></span><span class="rg">1.3 to 2</span><span class="tx"><strong>Minting with a one-hour wait.</strong> A mint settles at the next price after an hour, and never takes coverage below 1.3.</span></li>
-          <li><span class="sw s-fast" aria-hidden="true"></span><span class="rg">2 or more</span><span class="tx"><strong>Fast minting.</strong> A mint settles in the next batch, as far as coverage stays at 2 or more; the rest waits an hour.</span></li>
-          <li><span class="sw hatch" aria-hidden="true"></span><span class="rg">About 1.45 to 1.55</span><span class="tx"><strong>Default automatic exits.</strong> A wallet that never chose a level is redeemed when coverage, counting pending mints, reaches its own level in this band. Holders can change it or turn it off.</span></li>
+          <li><span class="sw s-fast" aria-hidden="true"></span><span class="rg">2 or more</span><span class="tx"><strong>Everything open.</strong> Mint at $1.001 as long as coverage stays at 2 or more after the batch; redeem at $0.999. Lords can withdraw down to coverage 2. Income is shared in proportion to capital.</span></li>
+          <li><span class="sw s-delayed" aria-hidden="true"></span><span class="rg">1.3 to 2</span><span class="tx"><strong>Combined mints only.</strong> A new SOLIDUS needs at least $2 of ETH; the part above $1.001 becomes Florins. Redeem at $0.999. The Lords’ part of the income rises, and Lords can only exit in ways that do not lower coverage.</span></li>
+          <li><span class="sw hatch" aria-hidden="true"></span><span class="rg">1.5</span><span class="tx"><strong>The exit box.</strong> SOLIDUS in the exit box leaves together in the first batch that opens below 1.5, at $1.00 in ETH, less the cost of selling it for USDT.</span></li>
+          <li><span class="sw s-closed" aria-hidden="true"></span><span class="rg">1.2 to 1.3</span><span class="tx"><strong>Redemptions at $0.99.</strong> The cent that stays in the reserve goes to the Lords.</span></li>
+          <li><span class="sw s-stop" aria-hidden="true"></span><span class="rg">1.2 or less</span><span class="tx"><strong>Conversion of one third.</strong> In each batch that opens at or below 1.2, one third of all SOLIDUS is converted into ETH at $0.99, pro rata, minus what already left in that batch by redemption or exit box. One conversion per batch at most.</span></li>
+          <li><span class="sw s-stop" aria-hidden="true"></span><span class="rg">Below 1</span><span class="tx"><strong>Everything at 0.99 × coverage.</strong> Redemptions, exit box and conversion pay $0.99 times coverage. No combined orders, and no Lord can enter until coverage is back above 1.</span></li>
         </ul>
       </div>
 
       <div class="why-block" aria-labelledby="h-moves">
         <h3 id="h-moves">How opportunists stabilize it</h3>
         <ul class="moves">
-          <li><span class="cue">SOLIDUS above a dollar</span><p>Minting at 1.001 and selling above that pays, and the selling brings the price down. During the 90-day cap, minting stops when the cap is full, so this works only in part.</p><span class="eff">Price falls</span></li>
-          <li><span class="cue">SOLIDUS below a dollar</span><p>Buying below 0.999 and redeeming at 0.999 pays, and the buying brings the price up. Each redemption also raises coverage.</p><span class="eff">Price rises</span></li>
-          <li><span class="cue">Coverage falls</span><p>The Lords’ capital becomes a smaller part of the reserve and still takes most of its income, so entering as a Lord at book value becomes more attractive. Each entry adds ETH and no SOLIDUS.</p><span class="eff">Coverage rises</span></li>
-          <li><span class="cue">Coverage below 1.3</span><p>Whoever wants SOLIDUS must bring at least 2 dollars of ETH for each one, and takes the part above the SOLIDUS price in Florins.</p><span class="eff">Coverage rises</span></li>
-          <li><span class="cue">Running the protocol</span><p>Anyone can run the batches and the automatic exits, and collects a fee for doing it. The protocol needs no operator.</p><span class="eff">No one in charge</span></li>
+          <li><span class="cue">SOLIDUS above a dollar</span><p>Minting at $1.001 and selling above that pays, and the selling brings the price down. Minting stops when coverage would fall below 2, and during the 90-batch cap when the cap is full, so this works only in part.</p><span class="eff">Price falls</span></li>
+          <li><span class="cue">SOLIDUS below a dollar</span><p>Buying below $0.999 and redeeming at $0.999 pays, and the buying brings the price up. Each redemption also raises coverage.</p><span class="eff">Price rises</span></li>
+          <li><span class="cue">Coverage below 2</span><p>The Lords’ part of the income rises in a straight line, from 50% at coverage 2 to 80% at 1.3, and new Lords can take a coupon. Entering as a Lord at book value becomes more attractive. Each entry adds ETH and no SOLIDUS.</p><span class="eff">Coverage rises</span></li>
+          <li><span class="cue">Minting below 2</span><p>Whoever wants new SOLIDUS must bring at least 2 dollars of ETH for each one, and takes the part above $1.001 in Florins.</p><span class="eff">Coverage rises</span></li>
+          <li><span class="cue">Running the protocol</span><p>Anyone can process the daily batch and collects the fee each order offers. The protocol needs no operator.</p><span class="eff">No one in charge</span></li>
         </ul>
       </div>
 
       <div class="why-pair">
         <div class="acc-stop" aria-labelledby="h-loss">
           <h3 id="h-loss">What limits the loss</h3>
-          <p>If ETH falls far enough for coverage to reach 1.2, the series stops in an orderly way. Each SOLIDUS of that series becomes a claim on a fixed amount of ETH, worth 0.95 dollars at the stop price, paid from a pool set aside for its holders. If the reserve is worth less than that, holders share all of it. The rest stays with the Lords, and a new series opens under the next name.</p>
-          <p>There are 20 series. If the 20th stops, the protocol ends.</p>
+          <p>If ETH falls far enough for coverage to open a batch at 1.2 or less, one third of all SOLIDUS is converted into ETH at $0.99 per SOLIDUS, in proportion to each balance. At most one conversion per batch. There is no stop and no closing: the system goes on, smaller.</p>
+          <p>Below coverage 1, the conversion pays $0.99 times coverage. The Lords’ capital is then at zero.</p>
         </div>
         <div class="acc-dukes" aria-labelledby="h-rules">
           <h3 id="h-rules">Nobody can change the rules</h3>
-          <p>No administrator, no owner, no pause and no vote. The contracts cannot be modified, and no function changes a parameter.</p>
+          <p>No administrator, no owner, no pause and no vote. The contracts cannot be modified, and no function changes a parameter. A bug cannot be fixed either: only the testnet and the bug rewards stand against it.</p>
           <p>One price source: Chainlink. The protocol depends on it and does not control it.</p>
         </div>
       </div>
+    </section>
+
+    <hr class="fillet">
+
+    <section id="exit" aria-labelledby="h-exit">
+      <div class="section-head">
+        <h2 id="h-exit">The exit box</h2>
+        <p>An optional way for a SOLIDUS holder to leave before a conversion, and to come back by itself.</p>
+      </div>
+      <div class="why-pair">
+        <div class="acc-sol">
+          <h3>How it works</h3>
+          <p>Checking the exit box deposits your SOLIDUS in a single exit box contract, outside the core. It keeps receiving the daily rebalancing. There is one level for everyone: 1.5.</p>
+          <p>In the first batch that opens with coverage below 1.5, all the SOLIDUS in the box leaves together. The core pays $1.00 in ETH per SOLIDUS at the batch price ($0.99 if coverage is below 1.3). The contract makes a single sale to USDT and credits each address its share. You withdraw your USDT whenever you want.</p>
+          <p class="quote-line">$1.00 in ETH, less the cost of the sale.</p>
+        </div>
+        <div class="acc-flor">
+          <h3>The automatic return</h3>
+          <p>In the first batch with coverage at 2 or more, the contract buys ETH with the USDT nobody withdrew and mints SOLIDUS again at $1.000. The box is then armed again.</p>
+          <p>The fee is fixed: the gas, shared by amount, plus a small margin, capped at 1%. The gas does not depend on how many addresses there are.</p>
+          <p>The app checks the box by default when you mint, and offers it, checked, if you connect with SOLIDUS outside it; that needs your own transaction. The contract itself does not check it, and other wallets and exchanges do not either. It cannot be checked in a batch that opens below 1.5.</p>
+        </div>
+      </div>
+      <ul class="points" style="margin-top:28px">
+        <li><strong>While you are out, you hold USDT</strong>, a centralized stablecoin that its issuer can freeze, right during the crisis, until coverage is back at 2. You do not receive the rebalancing while you are out.</li>
+        <li>The sale of all the boxes at once is large. Its slippage is paid by the holders.</li>
+        <li>A jump of ETH within a single day can take coverage from above 1.5 to below 1.3 between two batches. The box then pays $0.99.</li>
+      </ul>
+    </section>
+
+    <hr class="fillet">
+
+    <section id="lords" aria-labelledby="h-lords">
+      <div class="section-head">
+        <h2 id="h-lords">Lords and Florins</h2>
+        <p>The Lords put up the capital at risk. What they receive, and how they come in and go out.</p>
+      </div>
+      <div class="why-pair">
+        <div class="acc-flor">
+          <h3>Their part of the income</h3>
+          <p>The reserve’s income, the staking rewards and the mint and redeem fees, enters the reserve. 10% goes to DUKES holders. With coverage at 2 or more, the rest is shared in proportion to capital: SOLIDUS holders by the rebalancing, Lords through the book value of the Florin.</p>
+          <p>Below coverage 2, the Lords’ part rises in a straight line from 50% at 2 to 80% at 1.3, and stays at 80% below. The cent that stays in the reserve in each redemption or conversion at $0.99 also goes to the Lords.</p>
+          <p>The DUKES for participants go only to Florins, by capital.</p>
+        </div>
+        <div class="acc-dukes">
+          <h3>Coming in</h3>
+          <p>At book value, in any batch. Below coverage 2, a new Lord chooses between a plain entry and an entry with a coupon.</p>
+          <p>The coupon is not transferable. It is worth 3% × (2 − coverage) ÷ 0.7 of the entry, up to 3% at coverage 1.3 or below, and it turns into Florins when coverage is back at 2. If the address withdraws or sells Florins before that, the coupon shrinks in proportion.</p>
+          <p>Below coverage 1, nobody can enter.</p>
+        </div>
+      </div>
+      <h3 class="sub-head">Going out</h3>
+      <ul class="points">
+        <li><strong>Coverage 2 or more:</strong> net withdrawal in ETH, as far as coverage stays at 2 or more after the batch.</li>
+        <li><strong>Below 2:</strong> only exits that do not lower coverage. A proportional exit, handing in the same fraction of all SOLIDUS as of all Florins, your own SOLIDUS or SOLIDUS bought with one button; it is immediate and needs no price. An exit matched against the redemptions of the same batch. Or a sale of Florins in a FLOR/ETH pool, outside the core, if one exists.</li>
+      </ul>
     </section>
 
     <hr class="fillet">
@@ -517,12 +606,12 @@ section{scroll-margin-top:16px}
         <li>
           <span class="when">2027</span>
           <h3>Mainnet, with a cap</h3>
-          <p>Deployment on Ethereum, with limits on the amounts for 90 days.</p>
+          <p>Deployment on Ethereum, with limits on the amounts for the first 90 daily batches. The DUKES for participants start with the first batch.</p>
         </li>
         <li>
           <span class="when">2027</span>
           <h3>Stablecoin</h3>
-          <p>The cap ends 90 days after launch. From then on, anyone can mint and redeem SOLIDUS at close to one dollar, in any amount, and the main DUKES distribution to participants begins.</p>
+          <p>The cap ends after 90 batches. From then on, anyone can mint and redeem SOLIDUS at close to one dollar, in any amount the coverage allows.</p>
         </li>
       </ol>
     </section>
@@ -531,14 +620,27 @@ section{scroll-margin-top:16px}
 
     <section id="cap" class="notice" aria-labelledby="h-cap">
       <h2 id="h-cap">Launch with a cap</h2>
-      <p class="sans" style="font-size:14px;color:var(--ink-2);margin:0">For the 90 days after launch.</p>
+      <p class="sans" style="font-size:14px;color:var(--ink-2);margin:0">For the first 90 daily batches.</p>
       <div class="figs">
         <div class="fig"><span class="n">1,000,000</span><span class="u">SOLIDUS in circulation, at most</span></div>
         <div class="fig"><span class="n">US$4,000,000</span><span class="u">of capital from Lords, at most</span></div>
       </div>
       <ul class="points">
-        <li>Until the cap ends, 90 days after launch, SOLIDUS is not yet a stablecoin: it could be above one dollar. It should not be below $0.99, unless the series stops.</li>
+        <li>Until the cap ends, SOLIDUS is not yet a stablecoin: when the cap is full no new SOLIDUS can be minted, and it could trade above one dollar.</li>
         <li><strong>During the cap the code is new, and you can lose your money.</strong></li>
+      </ul>
+    </section>
+
+    <hr class="fillet">
+
+    <section id="risks" class="notice" aria-labelledby="h-risks">
+      <h2 id="h-risks">Before you use it</h2>
+      <ul class="points" style="margin-top:14px">
+        <li><strong>The price comes later.</strong> An order does not settle when you place it. It waits for the cutoff at 00:00 UTC and for the first Chainlink round after it, and then settles at that price. During the wait you stay exposed to ETH. If no round comes, the order moves to the next batch.</li>
+        <li><strong>One price source.</strong> Chainlink ETH/USD is the protocol’s only price, with nothing to check it against. A wrong round settles the whole batch at that price and can set off a conversion. The feed’s owners can change it without notice.</li>
+        <li><strong>Lido.</strong> Part of the reserve is wstETH. A failure of wstETH hits the reserve.</li>
+        <li><strong>No yield is promised.</strong> The rebalancing depends on the reserve’s income and can be zero. A conversion pays $0.99 in ETH, or less below coverage 1.</li>
+        <li><strong>Immutable code.</strong> A bug cannot be fixed.</li>
       </ul>
     </section>
 
@@ -555,7 +657,7 @@ section{scroll-margin-top:16px}
       <div class="notice scam" role="note" aria-label="Scam warning">
         <span class="mark" aria-hidden="true">!</span>
         <div>
-          <p><strong>No SOLIDUS, Florin or DUKES token exists yet.</strong> Anything that claims to be one is a scam.</p>
+          <p><strong>No SOLIDUS, wSOLIDUS, Florin or DUKES token exists yet.</strong> Anything that claims to be one is a scam.</p>
           <p>Do not send ETH or tokens to any address that says it belongs to Lords of Finance.</p>
         </div>
       </div>
