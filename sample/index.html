@@ -456,7 +456,7 @@ legend{font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--i
           <div class="stat"><span class="k">SOLIDUS in circulation</span><span class="v">640,000</span><span class="s">52,114 of them inside wSOLIDUS</span></div>
           <div class="stat"><span class="k">Reserve</span><span class="v">$2,740,000</span><span class="s">1,096.0 ETH</span></div>
           <div class="stat"><span class="k">ETH price</span><span class="v">$2,500.00</span><span class="s">Chainlink ETH/USD, first round after the cutoff, 00:07 UTC</span></div>
-          <div class="stat"><span class="k">Mint / redeem</span><span class="v">$1.001 / $0.999</span><span class="s">per SOLIDUS, paid in ETH and wstETH</span></div>
+          <div class="stat"><span class="k">Mint / redeem</span><span class="v">$1.002 / $0.998</span><span class="s">per SOLIDUS, paid in ETH and wstETH</span></div>
           <div class="stat"><span class="k">Next cutoff</span><span class="v">13 h 20 min</span><span class="s">Batch 50 closes at 00:00 UTC</span></div>
         </div>
       </section>
@@ -536,9 +536,9 @@ legend{font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--i
           <table>
             <thead><tr><th scope="col">Coverage</th><th scope="col">Mint</th><th scope="col">Redeem</th><th scope="col">Exit box</th><th scope="col">Lords</th><th scope="col">Lords’ part of the income</th></tr></thead>
             <tbody>
-              <tr><td><b>2 or more</b><span class="muted">Now</span></td><td>$1.001, pro rata down to coverage 2</td><td>$0.999</td><td>Can be checked; automatic return at $1.000</td><td>Enter at book value; net withdrawal down to coverage 2</td><td>In proportion to capital: now 76.6%</td></tr>
-              <tr><td><b>1.5 to 2</b></td><td>Combined orders only</td><td>$0.999</td><td>Can be checked; what left waits in USDT</td><td>Plain entry or entry with coupon (0 to 2.1%); exits that do not lower coverage</td><td>50% to 71%</td></tr>
-              <tr><td><b>1.3 to 1.5</b></td><td>Combined orders only</td><td>$0.999</td><td>Leaves at $1.00 in ETH; cannot be checked</td><td>Same; coupon 2.1 to 3%</td><td>71% to 80%</td></tr>
+              <tr><td><b>2 or more</b><span class="muted">Now</span></td><td>$1.002, pro rata down to coverage 2</td><td>$0.998</td><td>Can be checked; automatic return at $1.000</td><td>Enter at book value; net withdrawal down to coverage 2</td><td>In proportion to capital: now 76.6%</td></tr>
+              <tr><td><b>1.5 to 2</b></td><td>Combined orders only</td><td>$0.998</td><td>Can be checked; what left waits in USDT, or in ETH without the sale</td><td>Plain entry or entry with coupon (0 to 2.1%); exits that do not lower coverage</td><td>50% to 71%</td></tr>
+              <tr><td><b>1.3 to 1.5</b></td><td>Combined orders only</td><td>$0.998</td><td>Leaves at $1.00 in ETH; cannot be checked</td><td>Same; coupon 2.1 to 3%</td><td>71% to 80%</td></tr>
               <tr><td><b>1.2 to 1.3</b></td><td>Combined orders only</td><td>$0.99</td><td>Leaves at $0.99</td><td>Same; coupon 3%</td><td>80%</td></tr>
               <tr><td><b>1 to 1.2</b></td><td>Combined orders only</td><td>$0.99</td><td>Leaves at $0.99</td><td>Same; they also take the cent of the conversion</td><td>80%; conversion of one third at $0.99</td></tr>
               <tr><td><b>Below 1</b></td><td>No</td><td>$0.99 × coverage</td><td>Leaves at $0.99 × coverage</td><td>Nobody enters; their capital is at zero</td><td>80%; conversion at $0.99 × coverage</td></tr>
@@ -583,9 +583,9 @@ legend{font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--i
               <div><dt>Opening coverage</dt><dd>4.28</dd></div>
               <div class="sub"><dt>1 · Lords’ entries and combined orders</dt><dd>$12,000 in entries<small>no combined orders</small></dd></div>
               <div class="sub"><dt>2 · Exit boxes</dt><dd>None left<small>coverage above 1.5</small></dd></div>
-              <div class="sub"><dt>3 · Redemptions</dt><dd>3,100 SOLIDUS at $0.999</dd></div>
+              <div class="sub"><dt>3 · Redemptions</dt><dd>3,100 SOLIDUS at $0.998</dd></div>
               <div class="sub"><dt>4 · Conversion</dt><dd>None<small>only at coverage 1.2 or less</small></dd></div>
-              <div class="sub"><dt>5 · Mints and net withdrawals</dt><dd>8,400 SOLIDUS at $1.001<small>all filled; coverage stayed above 2</small></dd></div>
+              <div class="sub"><dt>5 · Mints and net withdrawals</dt><dd>8,400 SOLIDUS at $1.002<small>all filled; coverage stayed above 2</small></dd></div>
             </dl>
           </div>
           <ul class="aside">
@@ -659,15 +659,15 @@ legend{font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--i
             <div><dt>State</dt><dd>Armed<small>opening coverage 4.28, above 1.5</small></dd></div>
             <div><dt>SOLIDUS in the exit box</dt><dd>210,000<small>32.8% of all SOLIDUS</small></dd></div>
             <div><dt>Leaves at ETH price</dt><dd>about $875.91<small>if nothing else changes</small></dd></div>
-            <div><dt>Pays</dt><dd>$1.00 in ETH, less the cost of the sale<small>$0.99 if coverage is below 1.3; $0.99 × coverage below 1</small></dd></div>
+            <div><dt>Pays</dt><dd>$1.00 in ETH, less the cost of the sale<small>without the sale, $1.00 in ETH and wstETH; $0.99 if coverage is below 1.3; $0.99 × coverage below 1</small></dd></div>
             <div><dt>Fee</dt><dd>Gas shared by amount, plus a small margin<small>capped at 1%</small></dd></div>
-            <div><dt>What it costs</dt><dd>About 0.8% a year<small>against less than 0.1% without it, in the middle scenario of the simulations</small></dd></div>
+            <div><dt>What it costs</dt><dd>About 0.9% a year<small>with the sale to USDT, against less than 0.1% without the box, in the middle scenario of the simulations</small></dd></div>
           </dl>
           <ul class="aside">
-            <li><b>All together.</b> In the first batch that opens below 1.5, all of it leaves at once and is sold for USDT in a single sale. Each address gets its share and withdraws when it wants.</li>
-            <li><b>Back by itself, one batch later.</b> In the first batch with coverage at 2 or more, the USDT nobody withdrew buys ETH, and the mint back at $1.000 joins the following batch, filled in proportion up to coverage 2. ETH is bought only for the part that fits; the rest stays in USDT and tries again in the next batch.</li>
-            <li><b>The price of peace of mind.</b> Most of the cost is the rebalancing lost while out and the slippage of leaving and coming back. The figures assume 0.2% of slippage on the sale and 0.2% on the purchase back.</li>
-            <li><b>USDT can be frozen</b> by its issuer, and while out you do not receive the rebalancing.</li>
+            <li><b>All together.</b> In the first batch that opens below 1.5, all of it leaves at once. What has “Convert to USDT” is sold for USDT in a single sale; the rest stays in ETH and wstETH. Each address gets its share and withdraws when it wants.</li>
+            <li><b>Back by itself, one batch later.</b> With the sale: in the first batch with coverage at 2 or more, the USDT nobody withdrew buys ETH, and the mint back at $1.000 joins the following batch, filled in proportion up to coverage 2; ETH is bought only for the part that fits. Without the sale: the ETH itself is minted back at $1.000 in the first batch with room, for whatever it is worth then.</li>
+            <li><b>The price of peace of mind.</b> Most of the cost is the rebalancing lost while out and the slippage of leaving and coming back. The figures assume 0.2% of slippage on the sale and 0.2% on the purchase back, and bots that hedge their ETH at no cost. SOLIDUS in the box is never converted.</li>
+            <li><b>USDT can be frozen</b> by its issuer; ETH, without the sale, goes up and down while you are out. Either way you do not receive the rebalancing while out.</li>
           </ul>
         </div>
       </section>
@@ -749,7 +749,7 @@ legend{font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--i
             </header>
             <div class="bal"><span class="n">2,500.00</span><span class="u">SOLIDUS</span><span class="usd">$2,500.00 at one dollar each</span></div>
             <dl class="rows">
-              <div><dt>In the exit box</dt><dd>2,000.00<small>armed, level 1.5</small></dd></div>
+              <div><dt>In the exit box</dt><dd>2,000.00<small>armed, level 1.5, convert to USDT</small></dd></div>
               <div><dt>Outside the exit box</dt><dd>500.00</dd></div>
               <div><dt>Rebalancing in batch 49</dt><dd>+0.11 SOLIDUS</dd></div>
             </dl>
@@ -812,8 +812,8 @@ legend{font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--i
         </div>
         <ul class="orders" data-sample-box>
           <li>
-            <div class="what">Mint SOLIDUS<span>Placed 08:12 UTC · exit box checked · processing fee offered 0.0001 ETH</span></div>
-            <div class="amt">0.4000 ETH for about 999.0 SOLIDUS<span>at $2,500.00; final at the batch price, if coverage stays at 2 or more</span></div>
+            <div class="what">Mint SOLIDUS<span>Placed 08:12 UTC · exit box checked, convert to USDT · processing fee offered 0.0001 ETH</span></div>
+            <div class="amt">0.4000 ETH for about 998.0 SOLIDUS<span>at $2,500.00; final at the batch price, if coverage stays at 2 or more</span></div>
             <div class="wait"><span class="chip wait">Waiting for batch 50</span><b>Cutoff in 13 h 20 min</b><span>Can be cancelled until a valid Chainlink round after the cutoff exists</span></div>
           </li>
           <li>
@@ -823,7 +823,7 @@ legend{font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--i
           </li>
           <li>
             <div class="what">Redeem SOLIDUS<span>Placed yesterday 17:30 UTC</span></div>
-            <div class="amt">200.00 SOLIDUS for $199.80<span>0.02078 ETH and wstETH worth 0.05914 ETH, at $2,500.00</span></div>
+            <div class="amt">200.00 SOLIDUS for $199.60<span>0.02076 ETH and wstETH worth 0.05908 ETH, at $2,500.00</span></div>
             <div class="wait"><span class="chip done">Settled in batch 49</span><b>Round of 00:07 UTC</b><span>Paid in kind</span></div>
           </li>
         </ul>
@@ -838,7 +838,7 @@ legend{font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--i
           <li><strong>Paid in ETH and wstETH.</strong> Payments can include receipts from Lido’s withdrawal queue, which take days, or weeks, to collect. wstETH can sell for less than ETH.</li>
           <li><strong>One price source.</strong> Chainlink ETH/USD is the protocol’s only price, with nothing to check it against. A wrong round settles the whole batch at that price and can set off a conversion. The feed’s owners can change it without notice.</li>
           <li><strong>Conversion.</strong> In a batch that opens with coverage at 1.2 or less, one third of every SOLIDUS balance is converted into ETH at $0.99, less below coverage 1.</li>
-          <li><strong>Exit box.</strong> If it leaves, you hold USDT, which its issuer can freeze, until the batch after coverage is back at 2. The box costs about 0.8% a year, against less than 0.1% without it, in the middle scenario of the simulations: it is the price of peace of mind.</li>
+          <li><strong>Exit box.</strong> If it leaves, with “Convert to USDT” you hold USDT, which its issuer can freeze, until the batch after coverage is back at 2; without it, you hold ETH and wstETH, which go up and down. With the sale, the box costs about 0.9% a year, against less than 0.1% without the box, in the middle scenario of the simulations: it is the price of peace of mind.</li>
           <li>Until the cap ends, in 41 batches in this example, SOLIDUS is not yet a stablecoin: it could trade above one dollar.</li>
           <li><strong>During the cap the code is new, and you can lose your money.</strong></li>
         </ul>
@@ -854,15 +854,16 @@ legend{font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--i
 
           <article class="card" aria-labelledby="h-a-mint" data-sample-box>
             <h3 id="h-a-mint">Mint SOLIDUS</h3>
-            <p class="intro-p">Bring ETH, receive SOLIDUS at $1.001 each, in the next batch.</p>
+            <p class="intro-p">Bring ETH, receive SOLIDUS at $1.002 each, in the next batch.</p>
             <div class="field">
               <label for="mint-eth">You pay</label>
               <div class="ig"><input id="mint-eth" type="text" inputmode="decimal" value="0.4000" readonly><span class="unit">ETH</span></div>
             </div>
-            <label class="choice"><input type="checkbox" checked> <span>Put the new SOLIDUS in the exit box (level 1.5). It pays $1.00 in ETH, less the cost of the sale, and comes back by itself. Fee capped at 1%. It costs about 0.8% a year, against less than 0.1% without it, in the middle scenario of the simulations.</span></label>
+            <label class="choice"><input type="checkbox" checked> <span>Put the new SOLIDUS in the exit box (level 1.5). It pays $1.00 in ETH and comes back by itself. Fee capped at 1%. With the sale to USDT it costs about 0.9% a year, against less than 0.1% without the box, in the middle scenario of the simulations.</span></label>
+            <label class="choice"><input type="checkbox" checked> <span>Convert to USDT. Uncheck it to stay in ETH and wstETH while out, with no sale: what you have in dollars then goes up and down with ETH, and it comes back as whatever that ETH is worth.</span></label>
             <div class="preview">
               <dl class="rows">
-                <div><dt>You receive</dt><dd>about 999.0 SOLIDUS<small>at $2,500.00; final at the batch price</small></dd></div>
+                <div><dt>You receive</dt><dd>about 998.0 SOLIDUS<small>at $2,500.00; final at the batch price</small></dd></div>
                 <div><dt>Condition</dt><dd>Coverage stays at 2 or more<small>otherwise filled in proportion, up to coverage 2</small></dd></div>
                 <div><dt>Room under the cap</dt><dd>360,000 SOLIDUS</dd></div>
                 <div><dt>Processing fee</dt><dd>0.0001 ETH<small>you choose it; it goes to whoever processes the batch</small></dd></div>
@@ -876,7 +877,7 @@ legend{font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--i
 
           <article class="card" aria-labelledby="h-a-redeem" data-sample-box>
             <h3 id="h-a-redeem">Redeem SOLIDUS</h3>
-            <p class="intro-p">Return SOLIDUS, receive ETH and wstETH at $0.999 each, in the next batch.</p>
+            <p class="intro-p">Return SOLIDUS, receive ETH and wstETH at $0.998 each, in the next batch.</p>
             <div class="field">
               <label for="redeem-sol">You return</label>
               <div class="ig"><input id="redeem-sol" type="text" inputmode="decimal" value="500.00" readonly><span class="unit">SOLIDUS</span></div>
@@ -888,10 +889,10 @@ legend{font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--i
             </fieldset>
             <div class="preview">
               <dl class="rows">
-                <div><dt>You receive</dt><dd>$499.50<small>at $2,500.00; final at the batch price</small></dd></div>
-                <div class="sub"><dt>ETH, 26%</dt><dd>0.05195 ETH</dd></div>
-                <div class="sub"><dt>wstETH, 74%</dt><dd>worth 0.14785 ETH</dd></div>
-                <div><dt>Price</dt><dd>$0.999<small>$0.99 below coverage 1.3; $0.99 × coverage below 1</small></dd></div>
+                <div><dt>You receive</dt><dd>$499.00<small>at $2,500.00; final at the batch price</small></dd></div>
+                <div class="sub"><dt>ETH, 26%</dt><dd>0.05190 ETH</dd></div>
+                <div class="sub"><dt>wstETH, 74%</dt><dd>worth 0.14770 ETH</dd></div>
+                <div><dt>Price</dt><dd>$0.998<small>$0.99 below coverage 1.3; $0.99 × coverage below 1</small></dd></div>
                 <div><dt>Processing fee</dt><dd>0.0001 ETH</dd></div>
               </dl>
             </div>
@@ -903,17 +904,18 @@ legend{font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--i
             <h3 id="h-a-box">Exit box</h3>
             <p class="intro-p">Leave before a conversion, all together, and come back by yourself.</p>
             <p class="state" style="color:var(--ink)">Armed for 2,000.00 SOLIDUS. 500.00 are outside. Opening coverage 4.28, above 1.5.</p>
+            <label class="choice"><input type="checkbox" checked> <span>Convert to USDT. Uncheck it to stay in ETH and wstETH while out, with no sale: what you have in dollars then goes up and down with ETH, and it comes back as whatever that ETH is worth.</span></label>
             <div class="preview">
               <dl class="rows">
                 <div><dt>Leaves</dt><dd>In the first batch that opens below 1.5</dd></div>
-                <div><dt>Pays</dt><dd>$1.00 in ETH, less the cost of the sale<small>sold for USDT in one sale; $0.99 below coverage 1.3; $0.99 × coverage below 1</small></dd></div>
-                <div><dt>Comes back</dt><dd>In the batch after the first one with coverage 2 or more<small>mints SOLIDUS again at $1.000 with the USDT not withdrawn, pro rata up to coverage 2; the rest stays in USDT and tries again</small></dd></div>
+                <div><dt>Pays</dt><dd>$1.00 in ETH, less the cost of the sale<small>sold for USDT in one sale; without the sale, $1.00 in ETH and wstETH; $0.99 below coverage 1.3; $0.99 × coverage below 1</small></dd></div>
+                <div><dt>Comes back</dt><dd>In the batch after the first one with coverage 2 or more<small>with the sale, mints SOLIDUS again at $1.000 with the USDT not withdrawn, pro rata up to coverage 2, and the rest tries again; without it, mints the ETH itself again at $1.000, for whatever it is worth then</small></dd></div>
                 <div><dt>Fee</dt><dd>Gas shared by amount, plus a small margin<small>capped at 1%</small></dd></div>
-                <div><dt>What it costs</dt><dd>About 0.8% a year<small>against less than 0.1% without it, middle scenario of the simulations</small></dd></div>
-                <div><dt>USDT to withdraw</dt><dd>0.00</dd></div>
+                <div><dt>What it costs</dt><dd>About 0.9% a year<small>with the sale, against less than 0.1% without the box, middle scenario of the simulations</small></dd></div>
+                <div><dt>To withdraw</dt><dd>0.00<small>USDT, or ETH and wstETH without the sale</small></dd></div>
               </dl>
             </div>
-            <div class="warn"><p>While out you hold USDT, which its issuer can freeze, and you do not receive the rebalancing. The slippage of the sale is yours. It cannot be checked in a batch that opens below 1.5.</p></div>
+            <div class="warn"><p>With the sale, while out you hold USDT, which its issuer can freeze, and the slippage of the sale is yours. Without it, you hold ETH and wstETH, which go up and down. Either way you do not receive the rebalancing while out. It cannot be checked in a batch that opens below 1.5.</p></div>
             <div class="do btn-row"><button type="button" class="btn" data-sample>Check for 500.00</button><button type="button" class="btn secondary" data-sample>Take out of the box</button><p class="sample-msg" role="status"></p></div>
           </article>
 
@@ -969,11 +971,11 @@ legend{font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--i
             </div>
             <div class="preview">
               <dl class="rows">
-                <div class="total"><dt>You receive</dt><dd>about $1,630.00<small>final at the batch price</small></dd></div>
+                <div class="total"><dt>You receive</dt><dd>about $1,629.51<small>final at the batch price</small></dd></div>
                 <div class="sub"><dt>Book value</dt><dd>$1,630.50</dd></div>
-                <div class="sub"><dt>Less the band, 0.001 per SOLIDUS behind your Florins</dt><dd>−$0.50<small>stays with the Lords who remain</small></dd></div>
-                <div class="sub"><dt>ETH, 26%</dt><dd>0.16952 ETH</dd></div>
-                <div class="sub"><dt>wstETH, 74%</dt><dd>worth 0.48248 ETH</dd></div>
+                <div class="sub"><dt>Less the band, 0.002 per SOLIDUS behind your Florins</dt><dd>−$0.99<small>stays with the Lords who remain</small></dd></div>
+                <div class="sub"><dt>ETH, 26%</dt><dd>0.16947 ETH</dd></div>
+                <div class="sub"><dt>wstETH, 74%</dt><dd>worth 0.48233 ETH</dd></div>
                 <div><dt>Coverage after</dt><dd>4.28<small>above 2</small></dd></div>
                 <div><dt>Processing fee</dt><dd>0.0001 ETH</dd></div>
               </dl>
@@ -1008,7 +1010,7 @@ legend{font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--i
 
           <article class="card" aria-labelledby="h-a-comb" data-sample-box>
             <h3 id="h-a-comb">Combined order</h3>
-            <p class="intro-p">Below coverage 2, the only way to mint SOLIDUS. You bring at least $2 of ETH per SOLIDUS: $1.001 pays each SOLIDUS and the rest buys Florins at book value.</p>
+            <p class="intro-p">Below coverage 2, the only way to mint SOLIDUS. You bring at least $2 of ETH per SOLIDUS: $1.002 pays each SOLIDUS and the rest buys Florins at book value.</p>
             <p class="state">Coverage is 4.28 now: use an ordinary mint. The figures below are for coverage 1.25.</p>
             <div class="field">
               <label for="comb-sol">SOLIDUS to mint</label>
@@ -1021,8 +1023,8 @@ legend{font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--i
             <div class="preview">
               <dl class="rows">
                 <div><dt>You pay</dt><dd>0.8000 ETH<small>$2,000.00 at $2,500.00</small></dd></div>
-                <div class="sub"><dt>Pays 1,000 SOLIDUS at $1.001</dt><dd>$1,001.00</dd></div>
-                <div class="sub"><dt>Buys Florins at book value</dt><dd>$999.00</dd></div>
+                <div class="sub"><dt>Pays 1,000 SOLIDUS at $1.002</dt><dd>$1,002.00</dd></div>
+                <div class="sub"><dt>Buys Florins at book value</dt><dd>$998.00</dd></div>
                 <div><dt>Leverage of those Florins</dt><dd>5.0× at coverage 1.25<small>4.3× at 1.3 · 6.0× at 1.2</small></dd></div>
                 <div><dt>Batch</dt><dd>Next batch<small>counts toward the 1,000,000 cap</small></dd></div>
               </dl>
