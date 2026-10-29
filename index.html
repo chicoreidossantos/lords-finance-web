@@ -373,8 +373,8 @@ section{scroll-margin-top:16px}
         <article class="role acc-sol">
           <div class="seal" aria-hidden="true"><svg><use href="#i-purse"/></svg></div>
           <h3>Solidus (SOLIDUS) <small>The dollar</small></h3>
-          <p>Anyone can mint SOLIDUS with ETH at $1.002 and redeem it for ETH and wstETH at $0.998, without asking anyone’s permission. Orders settle once a day, in a batch. The reserve holds only ETH and wstETH, ETH staked through Lido.</p>
-          <p>Minting opens in batch 31: the first 30 batches take only Lords’ entries. After that, minting is open while coverage stays at 2 or more. Redemptions are always open: at $0.998; at $0.99 when coverage is below 1.3; and at $0.99 × coverage when coverage is below 1, so $0.99 is not a floor.</p>
+          <p>Anyone can mint SOLIDUS with ETH at $1.001 and redeem it for ETH and wstETH at $0.999, without asking anyone’s permission. Orders settle once a day, in a batch. The reserve holds only ETH and wstETH, ETH staked through Lido.</p>
+          <p>Minting opens in batch 31: the first 30 batches take only Lords’ entries. After that, minting is open while coverage stays at 2 or more. Redemptions are always open: at $0.999; at $0.99 when coverage is below 1.3; and at $0.99 × coverage when coverage is below 1, so $0.99 is not a floor.</p>
           <p class="earn"><strong>What you receive:</strong> your balance is rebalanced each day to pass on SOLIDUS’s part of the reserve’s income. This is a rebalancing, not interest: it depends on the income of the day, it is not promised, and the balance can also go down in a conversion.</p>
         </article>
         <article class="role acc-wsol">
@@ -469,22 +469,22 @@ section{scroll-margin-top:16px}
           </div>
         </div>
         <ul class="cov-key" aria-label="Coverage zones">
-          <li><span class="sw s-fast" aria-hidden="true"></span><span class="rg">2 or more</span><span class="tx"><strong>Everything open.</strong> Mint at $1.002 as long as coverage stays at 2 or more after the batch; redeem at $0.998. Lords can withdraw down to coverage 2. Income is shared in proportion to capital.</span></li>
-          <li><span class="sw s-delayed" aria-hidden="true"></span><span class="rg">1.3 to 2</span><span class="tx"><strong>Combined mints only.</strong> A new SOLIDUS needs at least $2 of ETH; the part above $1.002 becomes Florins. Redeem at $0.998. The Lords’ part of the income rises, and Lords can only exit in ways that do not lower coverage.</span></li>
+          <li><span class="sw s-fast" aria-hidden="true"></span><span class="rg">2 or more</span><span class="tx"><strong>Everything open.</strong> Mint at $1.001 as long as coverage stays at 2 or more after the batch; redeem at $0.999. Lords can withdraw down to coverage 2. Income is shared in proportion to capital.</span></li>
+          <li><span class="sw s-delayed" aria-hidden="true"></span><span class="rg">1.3 to 2</span><span class="tx"><strong>Combined mints only.</strong> A new SOLIDUS needs at least $2 of ETH; the part above $1.001 becomes Florins. Redeem at $0.999. The Lords’ part of the income rises, and Lords can only exit in ways that do not lower coverage.</span></li>
           <li><span class="sw hatch" aria-hidden="true"></span><span class="rg">1.5</span><span class="tx"><strong>The exit box.</strong> SOLIDUS in the exit box leaves together in the first batch that opens below 1.5, at $1.00 in ETH and wstETH. With “Convert to USDT”, checked by default, it is sold for USDT, less the cost of the sale; without it, it stays in ETH.</span></li>
-          <li><span class="sw s-closed" aria-hidden="true"></span><span class="rg">1.2 to 1.3</span><span class="tx"><strong>Redemptions at $0.99.</strong> The cent that stays in the reserve goes to the Lords.</span></li>
+          <li><span class="sw s-closed" aria-hidden="true"></span><span class="rg">1.2 to 1.3</span><span class="tx"><strong>Redemptions at $0.99.</strong> The cent that stays in the reserve goes to the Lords. The exit box still pays $1.00.</span></li>
           <li><span class="sw s-stop" aria-hidden="true"></span><span class="rg">1.2 or less</span><span class="tx"><strong>Conversion of one third.</strong> In each batch that opens at or below 1.2, one third of all SOLIDUS is converted into ETH at $0.99, pro rata, minus what already left in that batch by redemption or exit box. One conversion per batch at most.</span></li>
-          <li><span class="sw s-stop" aria-hidden="true"></span><span class="rg">Below 1</span><span class="tx"><strong>Everything at 0.99 × coverage.</strong> Redemptions, exit box and conversion pay $0.99 times coverage. No combined orders, and no Lord can enter until coverage is back above 1.</span></li>
+          <li><span class="sw s-stop" aria-hidden="true"></span><span class="rg">Below 1</span><span class="tx"><strong>Payouts below a dollar.</strong> Redemptions and conversion pay $0.99 times coverage; the exit box pays coverage × $1.00, its exact share of the reserve. No combined orders, and no Lord can enter until coverage is back above 1.</span></li>
         </ul>
       </div>
 
       <div class="why-block" aria-labelledby="h-moves">
         <h3 id="h-moves">How opportunists stabilize it</h3>
         <ul class="moves">
-          <li><span class="cue">SOLIDUS above a dollar</span><p>Minting at $1.002 and selling above that pays, and the selling brings the price down. Minting stops when coverage would fall below 2, and during the 90-batch cap when the cap is full, so this works only in part.</p><span class="eff">Price falls</span></li>
-          <li><span class="cue">SOLIDUS below a dollar</span><p>Buying below $0.998 and redeeming at $0.998 pays, and the buying brings the price up. Each redemption also raises coverage.</p><span class="eff">Price rises</span></li>
+          <li><span class="cue">SOLIDUS above a dollar</span><p>Minting at $1.001 and selling above that pays, and the selling brings the price down. Minting stops when coverage would fall below 2, and during the 90-batch cap when the cap is full, so this works only in part.</p><span class="eff">Price falls</span></li>
+          <li><span class="cue">SOLIDUS below a dollar</span><p>Buying below $0.999 and redeeming at $0.999 pays, and the buying brings the price up. Each redemption also raises coverage.</p><span class="eff">Price rises</span></li>
           <li><span class="cue">Coverage below 2</span><p>The Lords’ part of the income rises in a straight line, from 50% at coverage 2 to 80% at 1.3, and new Lords can take a coupon. Entering as a Lord at book value becomes more attractive. Each entry adds ETH and no SOLIDUS.</p><span class="eff">Coverage rises</span></li>
-          <li><span class="cue">Minting below 2</span><p>Whoever wants new SOLIDUS must bring at least 2 dollars of ETH for each one, and takes the part above $1.002 in Florins.</p><span class="eff">Coverage rises</span></li>
+          <li><span class="cue">Minting below 2</span><p>Whoever wants new SOLIDUS must bring at least 2 dollars of ETH for each one, and takes the part above $1.001 in Florins.</p><span class="eff">Coverage rises</span></li>
           <li><span class="cue">Running the protocol</span><p>Anyone can process the daily batch and collects the fee each order offers. The protocol needs no operator.</p><span class="eff">No one in charge</span></li>
         </ul>
       </div>
@@ -514,7 +514,7 @@ section{scroll-margin-top:16px}
         <div class="acc-sol">
           <h3>How it works</h3>
           <p>Checking the exit box deposits your SOLIDUS in a single exit box contract, outside the core. It keeps receiving the daily rebalancing. There is one level for everyone: 1.5.</p>
-          <p>In the first batch that opens with coverage below 1.5, all the SOLIDUS in the box leaves together. The core pays $1.00 per SOLIDUS in ETH and wstETH at the batch price ($0.99 if coverage is below 1.3; $0.99 × coverage if it is below 1). Each address chooses what happens next with the “Convert to USDT” option, checked by default in the app. With it, the contract makes a single sale to USDT and credits each address its share. Without it, nothing is sold: your share stays in ETH and wstETH. You withdraw your share whenever you want; what you withdraw does not come back by itself.</p>
+          <p>In the first batch that opens with coverage below 1.5, all the SOLIDUS in the box leaves together. The core pays $1.00 per SOLIDUS in ETH and wstETH at the batch price, even if a jump of ETH has taken coverage below 1.3. Only in a batch that opens below coverage 1 does it pay less: coverage × $1.00. Each address chooses what happens next with the “Convert to USDT” option, checked by default in the app. With it, the contract makes a single sale to USDT and credits each address its share. Without it, nothing is sold: your share stays in ETH and wstETH. You withdraw your share whenever you want; what you withdraw does not come back by itself.</p>
           <p class="quote-line">$1.00 in ETH, less the cost of the sale. Without the sale: $1.00 in ETH and wstETH.</p>
         </div>
         <div class="acc-flor">
@@ -526,10 +526,10 @@ section{scroll-margin-top:16px}
         </div>
       </div>
       <ul class="points" style="margin-top:28px">
-        <li><strong>What it costs.</strong> The exit box is the price of peace of mind, and it is not free. In the team’s simulations, in the middle scenario, holding SOLIDUS with the box and the sale to USDT costs about 0.9% a year, against less than 0.1% a year without the box. Most of it is the rebalancing you lose while out and the slippage of leaving and coming back, about once a year. In exchange, SOLIDUS in the box is never converted: it leaves first. The figures assume a slippage of 0.2% on the sale and 0.2% on the purchase back, and bots that hedge their ETH at no cost; they change with the real ones.</li>
+        <li><strong>What it costs.</strong> The exit box is the price of peace of mind, and it is not free. In the team’s simulations, in the middle scenario, holding SOLIDUS with the box and the sale to USDT costs about 0.8% a year, against less than 0.1% a year without the box. Most of it is the rebalancing you lose while out and the slippage of each exit and return. In exchange, SOLIDUS in the box is never converted: it leaves first. The figures assume a slippage of 0.2% on the sale and 0.2% on the purchase back, and bots that hedge their ETH at no cost; they change with the real ones.</li>
         <li><strong>With the sale, while you are out you hold USDT</strong>, a centralized stablecoin that its issuer can freeze, right during the crisis, until the batch after coverage is back at 2. <strong>Without it, you hold ETH and wstETH</strong>: what you have in dollars goes up and down with ETH, right when ETH is falling, until it comes back. Either way, you do not receive the rebalancing while you are out.</li>
         <li>The sale of all the boxes with “Convert to USDT” at once is large. Its slippage is paid by those holders.</li>
-        <li>A jump of ETH within a single day can take coverage from above 1.5 to below 1.3 between two batches. The box then pays $0.99.</li>
+        <li>A jump of ETH within a single day can take coverage from above 1.5 to below 1.3 between two batches. The box still pays $1.00. It pays less only in a batch that opens below coverage 1: coverage × $1.00.</li>
       </ul>
     </section>
 
@@ -545,7 +545,7 @@ section{scroll-margin-top:16px}
           <h3>Their part of the income</h3>
           <p>The reserve’s income, the staking rewards and the mint and redeem fees, enters the reserve. 10% goes to DUKES holders, except at coverage 1 or below, when it stays in the reserve. With coverage at 2 or more, the rest is shared in proportion to capital: SOLIDUS holders by the rebalancing, Lords through the book value of the Florin.</p>
           <p>Below coverage 2, the Lords’ part rises in a straight line from 50% at 2 to 80% at 1.3, and stays at 80% below. The cent that stays in the reserve in each redemption or conversion at $0.99 also goes to the Lords.</p>
-          <p>The Lords pay for the exit box: each SOLIDUS that leaves through it gets $1.00 instead of $0.998, and comes back at $1.000 instead of $1.002. Bots use the box too, without the sale to USDT.</p>
+          <p>The Lords pay for the exit box: each SOLIDUS that leaves through it gets $1.00 instead of $0.999, or instead of $0.99 after a jump below coverage 1.3, and comes back at $1.000 instead of $1.001. Bots use the box too, without the sale to USDT.</p>
           <p>The DUKES for participants go only to Florins, by capital. A batch that opens with coverage 1 or below hands out none.</p>
         </div>
         <div class="acc-dukes">
@@ -557,7 +557,7 @@ section{scroll-margin-top:16px}
       </div>
       <h3 class="sub-head">Going out</h3>
       <ul class="points">
-        <li><strong>Coverage 2 or more:</strong> net withdrawal in ETH and wstETH, at book value less the 0.2% band on the SOLIDUS behind your Florins, as far as coverage stays at 2 or more after the batch.</li>
+        <li><strong>Coverage 2 or more:</strong> net withdrawal in ETH and wstETH, at book value less the 0.1% band on the SOLIDUS behind your Florins, as far as coverage stays at 2 or more after the batch.</li>
         <li><strong>Below 2:</strong> only exits that do not lower coverage. A proportional exit, handing in the same fraction of all SOLIDUS as of all Florins, your own SOLIDUS or SOLIDUS bought with one button; it is immediate and needs no price. An exit matched against the redemptions of the same batch. Or a sale of Florins in a FLOR/ETH pool, outside the core, if one exists.</li>
       </ul>
     </section>
